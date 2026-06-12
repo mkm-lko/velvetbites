@@ -3210,8 +3210,13 @@
           style="display: flex; align-items: center; gap: 8px;">
           Cart (<span id="cart-counter">0</span>)
         </button>
+        <button id="login-btn" class="btn-nav-action" onclick="handleLoginClick()"
+          title="Log in">Login</button>
         <button id="logout-btn" class="btn-nav-action" onclick="handleLogoutClick()"
-          title="Log out">Logout</button>
+          title="Log out" style="display: none;">Logout</button>
+        <button id="nav-avatar-btn" class="nav-user-profile" onclick="navigateToHash('profile')" style="display:none;" title="Edit profile">
+          <div class="nav-avatar" id="nav-avatar-circle">V</div>
+        </button>
         <button id="theme-toggle-btn" class="btn-nav-action" onclick="toggleTheme()"
           title="Toggle dark mode">🌙</button>
       </div>
@@ -3270,6 +3275,11 @@
 
     <!-- 9. Order Tracking View -->
     <div id="page-order-tracking" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 10. Profile Edit View -->
+    <div id="page-profile" class="page-view">
       <!-- Dynamic render inside script -->
     </div>
 
@@ -3335,6 +3345,35 @@
           <button class="btn-nav-action" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border-light);" onclick="closeModal('logout-modal')">Cancel</button>
           <button class="btn-gold-luxury" onclick="confirmLogout()">Log Out</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOGIN MODAL ── -->
+  <div id="login-modal" class="modal-overlay" onclick="closeModalOutside(event, 'login-modal')">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Sign In to VelvetBites</h3>
+        <button class="modal-close" onclick="closeModal('login-modal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <form id="login-form" onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-name">Full Name</label>
+            <input class="input-luxury" id="login-name" type="text" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input class="input-luxury" id="login-email" type="email" placeholder="name@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-phone">Phone Number</label>
+            <input class="input-luxury" id="login-phone" type="tel" placeholder="+91 98765 43210" required>
+          </div>
+          <button type="submit" class="btn-gold-luxury" style="width: 100%; margin-top: 16px;">Log In</button>
+        </form>
+        <div style="text-align: center; margin: 18px 0; color: var(--text-muted);">or</div>
+        <button class="btn-nav-action" style="width: 100%; border: 1px solid var(--border-light); background: transparent;" onclick="handleUseAsGuest()">Use as Guest</button>
       </div>
     </div>
   </div>
@@ -3711,6 +3750,9 @@
         document.getElementById("nav-contact").classList.add("active");
         updateBreadcrumb("Concierge Contact");
         renderContact();
+      } else if (hash === "#/profile") {
+        updateBreadcrumb("Profile");
+        renderProfilePage();
       } else {
         // 404 fallback
         window.location.hash = "#/";
@@ -4848,8 +4890,130 @@
     function confirmLogout() {
       closeModal('logout-modal');
       appState.currentUser = null;
+      syncAuthNav();
       showToast('👋', 'You have been logged out successfully');
       navigateToHash('');
+    }
+
+    function handleLoginClick() {
+      openModal('login-modal');
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('login-name').value.trim();
+      const email = document.getElementById('login-email').value.trim();
+      const phone = document.getElementById('login-phone').value.trim();
+      if (!name || !email || !phone) {
+        showToast('⚠️', 'Please complete all sign-in fields');
+        return;
+      }
+      appState.currentUser = {
+        name,
+        email,
+        phone,
+        points: 0,
+        avatar: name.charAt(0).toUpperCase()
+      };
+      closeModal('login-modal');
+      syncAuthNav();
+      showToast('👋', `Welcome, ${name}`);
+      navigateToHash('profile');
+    }
+
+    function handleUseAsGuest() {
+      appState.currentUser = {
+        name: 'Velvet Guest',
+        email: 'guest@velvetbites.com',
+        phone: '+91 90000 00000',
+        points: 0,
+        avatar: 'V'
+      };
+      closeModal('login-modal');
+      syncAuthNav();
+      showToast('👋', 'Continuing as guest');
+      navigateToHash('profile');
+    }
+
+    function syncAuthNav() {
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      const avatarBtn = document.getElementById('nav-avatar-btn');
+      const avatarCircle = document.getElementById('nav-avatar-circle');
+      if (!loginBtn || !logoutBtn || !avatarBtn || !avatarCircle) return;
+
+      if (appState.currentUser) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-flex';
+        avatarBtn.style.display = 'inline-flex';
+        avatarCircle.textContent = appState.currentUser.avatar || 'V';
+      } else {
+        loginBtn.style.display = 'inline-flex';
+        logoutBtn.style.display = 'none';
+        avatarBtn.style.display = 'none';
+      }
+    }
+
+    function renderProfilePage() {
+      const page = document.getElementById('page-profile');
+      if (!appState.currentUser) {
+        page.innerHTML = `
+          <section class="home-section" style="text-align:center; min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <h2 style="font-family: var(--font-serif); font-size:2rem; margin-bottom:16px;">Please sign in first</h2>
+            <p style="color: var(--text-muted); max-width:460px; margin-bottom:24px;">Log in or continue as guest to update your profile details and manage your preferences.</p>
+            <button class="btn-gold-luxury" onclick="openModal('login-modal')">Sign In / Use Guest</button>
+          </section>
+        `;
+      } else {
+        page.innerHTML = `
+          <section class="home-section" style="max-width: 720px; margin: 60px auto; padding: 40px;">
+            <div style="display:flex; align-items:center; gap:18px; margin-bottom: 28px;">
+              <div class="nav-avatar" style="width: 56px; height: 56px; font-size: 1.3rem;">${appState.currentUser.avatar}</div>
+              <div>
+                <h2 style="font-family: var(--font-serif); font-size:2rem; margin:0;">${appState.currentUser.name}</h2>
+                <p style="color: var(--text-muted); margin:4px 0 0;">${appState.currentUser.email}</p>
+              </div>
+            </div>
+            <form id="profile-edit-form" onsubmit="handleProfileSave(event)">
+              <div class="form-group">
+                <label class="form-label" for="profile-name">Full Name</label>
+                <input class="input-luxury" id="profile-name" type="text" value="${appState.currentUser.name}" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-email">Email Address</label>
+                <input class="input-luxury" id="profile-email" type="email" value="${appState.currentUser.email}" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-phone">Phone Number</label>
+                <input class="input-luxury" id="profile-phone" type="tel" value="${appState.currentUser.phone}" required>
+              </div>
+              <button type="submit" class="btn-gold-luxury" style="width:100%; margin-top:16px;">Save Profile</button>
+            </form>
+          </section>
+        `;
+      }
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active', 'fade-in'));
+      page.classList.add('active');
+      setTimeout(() => page.classList.add('fade-in'), 50);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleProfileSave(e) {
+      e.preventDefault();
+      const name = document.getElementById('profile-name').value.trim();
+      const email = document.getElementById('profile-email').value.trim();
+      const phone = document.getElementById('profile-phone').value.trim();
+      if (!name || !email || !phone) {
+        showToast('⚠️', 'Please complete all profile fields');
+        return;
+      }
+      appState.currentUser.name = name;
+      appState.currentUser.email = email;
+      appState.currentUser.phone = phone;
+      appState.currentUser.avatar = name.charAt(0).toUpperCase();
+      syncAuthNav();
+      showToast('✓', 'Profile updated successfully');
+      renderProfilePage();
     }
 
     // ══════════════════════════════════════════════
@@ -5176,6 +5340,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       initTheme();
+      syncAuthNav();
       handleRouteChange();
     });
   </script>
