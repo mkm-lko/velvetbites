@@ -1,0 +1,5154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VelvetBites — Curated Luxury Restaurant Discovery & Booking Platform</title>
+  <link rel="icon" href="Logo.png" type="image/png">
+  <meta name="description"
+    content="Discover curated dining experiences, read editorial culinary reviews, and reserve exclusive tables at award-winning restaurants.">
+  <style>
+    /* VelvetBites Luxury Redesign Style System */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap');
+
+    :root {
+      /* Theme Colors */
+      --bg-primary: #FAF7F2;
+      /* Warm Ivory */
+      --bg-secondary: #EFE8DD;
+      /* Soft Beige */
+      --bg-white: #FFFFFF;
+      /* Pure White */
+      --text-dark: #1A1A1A;
+      /* Charcoal Text */
+      --text-muted: #666666;
+      /* Soft Muted Grey */
+      --gold: #D4AF37;
+      /* Champagne Gold */
+      --gold-light: #E8C35A;
+      /* Bright Champagne Gold */
+      --gold-dim: rgba(212, 175, 55, 0.08);
+      /* Transparent Gold Accent */
+      --gold-border: rgba(212, 175, 55, 0.25);
+      --border-light: rgba(26, 26, 26, 0.06);
+      --success: #6E8E75;
+      /* Muted Sage Green */
+      --danger: #C85A5A;
+      /* Muted Crimson */
+
+      /* Typography */
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+      /* Transitions & Shadows */
+      --tr-smooth: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --tr-fast: 0.25s ease;
+      --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.03);
+      --shadow-premium: 0 20px 40px rgba(212, 175, 55, 0.06);
+      --shadow-hover: 0 30px 60px rgba(26, 26, 26, 0.08);
+    }
+
+    body.dark-mode {
+      --bg-primary: #0f151f;
+      --bg-secondary: #181f2b;
+      --bg-white: #1f2937;
+      --text-dark: #f5f7fa;
+      --text-muted: #9aa5b4;
+      --gold: #d8a53d;
+      --gold-light: #f1c75c;
+      --gold-dim: rgba(216, 165, 61, 0.12);
+      --gold-border: rgba(216, 165, 61, 0.28);
+      --border-light: rgba(255, 255, 255, 0.09);
+      --success: #7ec695;
+      --danger: #f1736b;
+      --shadow-subtle: 0 20px 40px rgba(0, 0, 0, 0.35);
+      --shadow-premium: 0 24px 48px rgba(0, 0, 0, 0.35);
+      --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    body.dark-mode,
+    body.dark-mode .page-view,
+    body.dark-mode .home-section,
+    body.dark-mode .restaurants-search-section,
+    body.dark-mode .restaurants-list-section,
+    body.dark-mode .detail-layout,
+    body.dark-mode .categories-banner-section,
+    body.dark-mode .offers-section,
+    body.dark-mode .reservations-section,
+    body.dark-mode .about-layout,
+    body.dark-mode .contact-layout,
+    body.dark-mode footer,
+    body.dark-mode .profile-layout,
+    body.dark-mode .drawer-panel,
+    body.dark-mode .modal-box {
+      background: var(--bg-white);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
+    body.dark-mode h6,
+    body.dark-mode p,
+    body.dark-mode span,
+    body.dark-mode a,
+    body.dark-mode label,
+    body.dark-mode button,
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode textarea,
+    body.dark-mode .table-slot,
+    body.dark-mode .table-num,
+    body.dark-mode .table-capacity,
+    body.dark-mode .booking-step-title,
+    body.dark-mode .legend-item span {
+      color: var(--text-dark);
+    }
+
+    body.dark-mode #navbar {
+      background: rgba(16, 22, 34, 0.88);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode #navbar.scrolled {
+      background: rgba(16, 22, 34, 0.95);
+    }
+
+    body.dark-mode .breadcrumb-container {
+      background: rgba(16, 22, 34, 0.92);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .hero-overlay {
+      background: linear-gradient(to right, rgba(15, 21, 31, 0.92) 35%, rgba(15, 21, 31, 0.4) 100%);
+    }
+
+    body.dark-mode .hero-badge,
+    body.dark-mode .btn-oauth,
+    body.dark-mode .carousel-btn,
+    body.dark-mode .auth-divider::before,
+    body.dark-mode .auth-divider::after {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .btn-oauth:hover {
+      background: var(--bg-secondary);
+    }
+
+    body.dark-mode .card-tag,
+    body.dark-mode .card-like-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--bg-white);
+    }
+
+    body.dark-mode .carousel-dot {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.dark-mode .table-slot {
+      background: var(--bg-white);
+      border-color: var(--border-light);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .table-slot.occupied {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    body.dark-mode .legend-dot.occupied {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    body.dark-mode .premium-map-placeholder,
+    body.dark-mode .contact-card-info,
+    body.dark-mode .booking-widget,
+    body.dark-mode .profile-dashboard-content,
+    body.dark-mode .detail-card-section,
+    body.dark-mode .booking-form-container,
+    body.dark-mode .contact-form-col,
+    body.dark-mode .footer-top,
+    body.dark-mode .footer-col,
+    body.dark-mode .profile-tabs-sidebar,
+    body.dark-mode .select-luxury,
+    body.dark-mode .input-luxury,
+    body.dark-mode .form-input,
+    body.dark-mode .occasion-chip,
+    body.dark-mode .filter-btn {
+      background: var(--bg-white);
+      border-color: var(--border-light);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .filter-btn:hover,
+    body.dark-mode .filter-btn.active,
+    body.dark-mode .profile-tab-btn.active,
+    body.dark-mode .menu-tab.active {
+      color: var(--gold);
+    }
+
+    /* ── RESET & BASE STYLES ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      /* Default site zoom set to 80% for overall scale */
+      zoom: 0.8;
+      background-color: var(--bg-primary);
+      color: var(--text-dark);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-secondary);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--tr-fast);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+
+    /* ── PAGE LOADER ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99997;
+      background: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loader.gone {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .ld-logo {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--text-dark);
+    }
+
+    .ld-logo span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .ld-bar {
+      width: 150px;
+      height: 1px;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ld-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      animation: ldfill 2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes ldfill {
+      to {
+        width: 100%;
+      }
+    }
+
+    /* ── FLOATING NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 24px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(250, 247, 242, 0.85);
+      /* Warm Ivory base */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      transition: padding var(--tr-smooth), background var(--tr-smooth);
+    }
+
+    #navbar.scrolled {
+      padding: 16px 60px;
+      background: rgba(250, 247, 242, 0.95);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-dark);
+    }
+
+    .nav-logo span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      opacity: 0.7;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-nav-action {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      padding: 10px 20px;
+      border: 1px solid var(--gold-border);
+      background: transparent;
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .btn-nav-action:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
+
+    .btn-nav-gold {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .btn-nav-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+    }
+
+    .nav-user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .nav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      overflow: hidden;
+    }
+
+    .nav-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nav-username {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb-container {
+      padding: 110px 60px 0;
+      background: var(--bg-primary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-container span {
+      margin: 0 8px;
+      color: var(--gold);
+    }
+
+    .breadcrumb-container a:hover {
+      color: var(--gold);
+    }
+
+    /* ── TYPOGRAPHY & HEADER WIDGETS ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+
+    .section-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 550px;
+      margin: 16px auto 0;
+      font-weight: 300;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-luxury {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      border: 1px solid var(--text-dark);
+      background: transparent;
+      padding: 16px 36px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--tr-smooth);
+      z-index: 1;
+    }
+
+    .btn-luxury::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--text-dark);
+      transform: translateY(100%);
+      transition: transform var(--tr-smooth);
+      z-index: -1;
+    }
+
+    .btn-luxury:hover {
+      color: var(--bg-primary);
+    }
+
+    .btn-luxury:hover::before {
+      transform: translateY(0);
+    }
+
+    .btn-gold-luxury {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 16px 36px;
+      cursor: pointer;
+      transition: all var(--tr-smooth);
+    }
+
+    .btn-gold-luxury:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary-luxury {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .btn-secondary-luxury:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── STICKY RESERVATION BUTTON ── */
+    #sticky-reserve-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text-dark);
+      color: var(--bg-primary);
+      padding: 14px 24px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform var(--tr-fast), background var(--tr-fast);
+    }
+
+    #sticky-reserve-btn:hover {
+      background: var(--gold);
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    body.dark-mode #sticky-reserve-btn {
+      background: var(--bg-white);
+      color: var(--text-dark);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    body.dark-mode #sticky-reserve-btn:hover {
+      background: var(--gold);
+    }
+
+    #sticky-reserve-btn svg {
+      fill: currentColor;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── CARDS (Luxury Grid Architecture) ── */
+    .restaurant-grid,
+    .collections-grid,
+    .offers-grid,
+    .city-grid {
+      display: grid;
+      gap: 32px;
+    }
+
+    .restaurant-grid {
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+
+    .luxury-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      transition: transform var(--tr-smooth), box-shadow var(--tr-smooth), border-color var(--tr-smooth);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .luxury-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold-border);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .luxury-card:hover .card-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(250, 247, 242, 0.9);
+      backdrop-filter: blur(10px);
+      color: var(--text-dark);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border: 1px solid var(--gold-border);
+    }
+
+    .card-like-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(250, 247, 242, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all var(--tr-fast);
+    }
+
+    .card-like-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .card-like-btn.liked {
+      color: var(--danger);
+      border-color: var(--danger);
+      background: rgba(200, 90, 90, 0.05);
+    }
+
+    .card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .card-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-dark);
+    }
+
+    .card-rating svg {
+      width: 11px;
+      height: 11px;
+      fill: var(--gold);
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-info-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+      margin-top: auto;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .card-info-footer span strong {
+      color: var(--text-dark);
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    /* ── PAGE VIEW SYSTEM ── */
+    .page-view {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    .page-view.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HOME / HERO SECTION ── */
+    .hero-section {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 0 80px;
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+
+    .hero-slider-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .hero-slider-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.92);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(250, 247, 242, 0.85) 35%, rgba(250, 247, 242, 0.2) 100%);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 650px;
+      padding-top: 40px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid var(--gold-border);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(1.3);
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ── HOME / SIGNATURE COLLECTIONS ── */
+    .home-section {
+      padding: 100px 60px;
+    }
+
+    .home-section.beige {
+      background: var(--bg-secondary);
+    }
+
+    .collections-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .collection-card {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+    }
+
+    .collection-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .collection-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0.1) 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      color: var(--bg-primary);
+      z-index: 2;
+      transition: background var(--tr-smooth);
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .collection-card:hover .collection-card-overlay {
+      background: linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, rgba(26, 26, 26, 0.2) 60%);
+    }
+
+    .collection-subtitle {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .collection-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .collection-desc {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      font-weight: 300;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .collection-link {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Popular Cities */
+    .city-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .city-card {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .city-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s var(--tr-smooth);
+    }
+
+    .city-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26, 26, 26, 0.6) 0%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      color: var(--bg-white);
+      z-index: 2;
+    }
+
+    .city-name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    .city-count {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+    }
+
+    .city-card:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Testimonials */
+    .testimonials-slider {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--text-dark);
+      margin-bottom: 30px;
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 4px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .testimonial-av {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-border);
+      overflow: hidden;
+    }
+
+    .testimonial-av img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-info {
+      text-align: left;
+    }
+
+    .testimonial-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .testimonial-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── RESTAURANTS PAGE ── */
+    .restaurants-search-section {
+      padding: 60px 60px 20px;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .search-filter-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr 220px 220px;
+      gap: 16px;
+    }
+
+    .input-luxury-wrap {
+      position: relative;
+    }
+
+    .input-luxury {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      outline: none;
+      transition: all var(--tr-fast);
+    }
+
+    .input-luxury:focus {
+      border-color: var(--gold);
+      background: var(--bg-white);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.05);
+    }
+
+    .select-luxury {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 0.85rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: all var(--tr-fast);
+    }
+
+    .select-luxury:focus {
+      border-color: var(--gold);
+      background: var(--bg-white);
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '▼';
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      position: absolute;
+      top: 52%;
+      right: 20px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    /* Filters bar styling */
+    .filters-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .filter-btn {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 8px 18px;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all var(--tr-fast);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    .restaurants-list-section {
+      padding: 60px;
+    }
+
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 80px 20px;
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ── RESTAURANT DETAIL PAGE ── */
+    .detail-hero-section {
+      position: relative;
+      height: 70vh;
+      background: var(--text-dark);
+      overflow: hidden;
+    }
+
+    .detail-carousel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      width: 500%;
+      /* 5 slides */
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .detail-slide {
+      width: 20%;
+      height: 100%;
+      position: relative;
+    }
+
+    .detail-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(250, 247, 242, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--bg-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all var(--tr-fast);
+      z-index: 10;
+    }
+
+    .carousel-btn:hover {
+      background: var(--bg-primary);
+      color: var(--text-dark);
+    }
+
+    .carousel-btn.prev {
+      left: 40px;
+    }
+
+    .carousel-btn.next {
+      right: 40px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .carousel-dot.active {
+      background: var(--gold);
+      transform: scale(1.2);
+    }
+
+    .detail-header-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 60px 80px;
+      background: linear-gradient(to top, rgba(26, 26, 26, 0.9) 0%, transparent 100%);
+      color: var(--bg-white);
+      z-index: 5;
+    }
+
+    .detail-cuisine {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .detail-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .detail-quick-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    .detail-quick-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      padding: 80px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .detail-main {}
+
+    .detail-sidebar {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+
+    .detail-card-section {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .detail-sec-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .story-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* Categorized Menu Styling */
+    .menu-categories-tabs {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+    }
+
+    .menu-tab {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding-bottom: 8px;
+      position: relative;
+    }
+
+    .menu-tab.active {
+      color: var(--gold);
+    }
+
+    .menu-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -13px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .menu-items-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .menu-item-card {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      transition: all var(--tr-fast);
+    }
+
+    .menu-item-card:hover {
+      border-color: var(--gold-border);
+      background: var(--bg-white);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .menu-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .menu-item-info {
+      flex-grow: 1;
+    }
+
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .menu-item-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .menu-item-price {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .menu-item-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .menu-item-add-btn {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      border: 1px solid var(--text-dark);
+      background: transparent;
+      padding: 4px 10px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all var(--tr-fast);
+    }
+
+    .menu-item-add-btn:hover {
+      background: var(--text-dark);
+      color: var(--bg-primary);
+    }
+
+    /* Gallery Masonry Layout */
+    .masonry-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 140px;
+      gap: 16px;
+    }
+
+    .masonry-item {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--tr-smooth);
+      cursor: zoom-in;
+    }
+
+    .masonry-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .masonry-item.wide {
+      grid-column: span 2;
+    }
+
+    .masonry-item.tall {
+      grid-row: span 2;
+    }
+
+    /* Reviews Styling */
+    .reviews-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .review-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .review-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .review-user-av {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .review-user-av img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .review-content {
+      flex-grow: 1;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .review-username {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .review-date {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .review-rating {
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+    }
+
+    .review-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Booking Widget inside Sidebar */
+    .booking-widget {
+      background: var(--bg-white);
+      border: 1px solid var(--gold-border);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-premium);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .booking-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .booking-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .booking-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .booking-input {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      outline: none;
+      width: 100%;
+    }
+
+    .booking-input:focus {
+      border-color: var(--gold);
+      background: var(--bg-white);
+    }
+
+    /* ── CATEGORIES PAGE ── */
+    .categories-banner-section {
+      padding: 80px 60px 40px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .category-luxury-card {
+      position: relative;
+      height: 280px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .category-luxury-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .category-luxury-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--bg-white);
+      z-index: 2;
+      transition: background var(--tr-smooth);
+    }
+
+    .category-luxury-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .category-luxury-count {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 8px;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .category-luxury-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .category-luxury-card:hover .category-luxury-overlay {
+      background: rgba(26, 26, 26, 0.65);
+    }
+
+    /* ── OFFERS PAGE ── */
+    .offers-section {
+      padding: 80px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .offers-luxury-list {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .offer-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      padding: 40px;
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .offer-row:nth-child(even) {
+      direction: rtl;
+    }
+
+    .offer-row:nth-child(even) .offer-info-col {
+      direction: ltr;
+    }
+
+    .offer-img-col {
+      height: 350px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--gold-border);
+    }
+
+    .offer-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .offer-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .offer-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .offer-name {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--text-dark);
+    }
+
+    .offer-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .offer-pricing-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 1rem;
+    }
+
+    .offer-price-val {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .offer-price-old {
+      font-size: 1rem;
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .offer-code-card {
+      align-self: flex-start;
+      padding: 8px 16px;
+      background: var(--bg-primary);
+      border: 1px dashed var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+    }
+
+    /* ── RESERVATIONS PAGE ── */
+    .reservations-section {
+      padding: 80px 60px;
+      background: var(--bg-secondary);
+    }
+
+    .booking-form-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-white);
+      border: 1px solid var(--gold-border);
+      box-shadow: var(--shadow-hover);
+      padding: 50px;
+    }
+
+    .booking-step {
+      margin-bottom: 40px;
+    }
+
+    .booking-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .booking-step-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .booking-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    /* Table Map Selection */
+    .table-map-container {
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .table-map {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 480px;
+    }
+
+    .table-slot {
+      width: 80px;
+      height: 80px;
+      border: 2px solid var(--border-light);
+      background: var(--bg-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .table-slot:hover {
+      border-color: var(--gold);
+      transform: scale(1.04);
+    }
+
+    .table-slot.occupied {
+      background: rgba(26, 26, 26, 0.05);
+      border-color: var(--border-light);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .table-slot.selected {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(216, 165, 61, 0.18);
+      outline: 3px solid rgba(216, 165, 61, 0.25);
+      outline-offset: 2px;
+    }
+
+    body.dark-mode .table-slot.selected {
+      background: rgba(216, 165, 61, 0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(216, 165, 61, 0.28);
+      outline: 3px solid rgba(216, 165, 61, 0.35);
+      outline-offset: 2px;
+    }
+
+    .table-num {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .table-capacity {
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .table-legend {
+      display: flex;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--border-light);
+    }
+
+    .legend-dot.available {
+      background: var(--bg-white);
+    }
+
+    .legend-dot.selected {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
+
+    .legend-dot.occupied {
+      background: rgba(26, 26, 26, 0.15);
+    }
+
+    /* Occasion Chips */
+    .occasion-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .occasion-chip {
+      padding: 12px 24px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all var(--tr-fast);
+    }
+
+    .occasion-chip:hover,
+    .occasion-chip.selected {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    /* ── ABOUT US PAGE ── */
+    .about-hero {
+      height: 50vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text-dark);
+    }
+
+    .about-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--bg-white);
+    }
+
+    .about-layout {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .about-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-row.reverse {
+      direction: rtl;
+    }
+
+    .about-row.reverse .about-text-col {
+      direction: ltr;
+    }
+
+    .about-img-frame {
+      position: relative;
+      border: 1px solid var(--gold-border);
+      padding: 16px;
+      background: var(--bg-white);
+    }
+
+    .about-img-frame img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .about-text-col {}
+
+    .about-subtitle {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .about-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .about-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* Culinary Philosophy / Core Values Cards */
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .philosophy-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .philosophy-num {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .philosophy-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .philosophy-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Awards Widget */
+    .awards-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .award-item {
+      border: 1px solid var(--gold-border);
+      padding: 24px;
+      text-align: center;
+      background: var(--bg-white);
+    }
+
+    .award-year {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .award-title {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .award-org {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── CONTACT US PAGE ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 40px;
+    }
+
+    .contact-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .contact-card-info {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 30px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .contact-details h4 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .contact-details p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Map frame design */
+    .premium-map-frame {
+      margin-top: 20px;
+      border: 1px solid var(--gold-border);
+      padding: 8px;
+      background: var(--bg-white);
+    }
+
+    .premium-map-placeholder {
+      height: 250px;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-graphic {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-image: radial-gradient(var(--text-dark) 1px, transparent 1px), radial-gradient(var(--text-dark) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+    }
+
+    .map-marker {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .map-pin {
+      width: 32px;
+      height: 32px;
+      background: var(--gold);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: rotate(-45deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-45deg) translateY(-8px);
+      }
+    }
+
+    .map-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .contact-form-col {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 40px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .form-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-input {
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      background: var(--bg-white);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ── PROFILE PAGE ── */
+    .profile-hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-light);
+      padding: 60px 60px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .profile-huge-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--bg-white);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: var(--gold);
+      overflow: hidden;
+    }
+
+    .profile-huge-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-meta-title h2 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 400;
+    }
+
+    .profile-meta-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .profile-loyalty-widget {
+      text-align: right;
+      padding: 16px 24px;
+      background: var(--bg-white);
+      border: 1px solid var(--gold-border);
+    }
+
+    .loyalty-points-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .loyalty-points-val {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      padding: 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .profile-tabs-sidebar {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      height: fit-content;
+    }
+
+    .profile-tab-btn {
+      padding: 16px 24px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-light);
+      transition: all var(--tr-fast);
+    }
+
+    .profile-tab-btn:last-child {
+      border-bottom: none;
+    }
+
+    .profile-tab-btn:hover,
+    .profile-tab-btn.active {
+      background: var(--bg-primary);
+      color: var(--gold);
+      padding-left: 30px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .profile-dashboard-content {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 40px;
+      box-shadow: var(--shadow-subtle);
+      min-height: 400px;
+    }
+
+    .profile-panel {
+      display: none;
+    }
+
+    .profile-panel.active {
+      display: block;
+    }
+
+    /* History lists inside Profile dashboard */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+    }
+
+    .history-details {}
+
+    .history-title-main {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .history-sub-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .history-status-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+    }
+
+    .history-status-badge.confirmed {
+      color: var(--success);
+      border-color: var(--success);
+    }
+
+    .history-status-badge.completed {
+      color: var(--text-muted);
+    }
+
+    .history-status-badge.cancelled {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    /* Settings form fields */
+    .settings-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Wishlist display inside Profile */
+    .profile-wishlist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ── OVERLAY DRAWER: CART Drawers ── */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(440px, 100vw);
+      background: var(--bg-primary);
+      border-left: 1px solid var(--gold-border);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      z-index: 2001;
+    }
+
+    .drawer-overlay.open .drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 24px;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .drawer-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .drawer-body {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .drawer-footer {
+      padding: 24px;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .cart-item-row {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+    }
+
+    .cart-item-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .cart-item-rest {
+      font-size: 0.7rem;
+      color: var(--gold);
+    }
+
+    .cart-item-pricing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-adjust {
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .cart-remove-btn {
+      font-size: 0.75rem;
+      color: var(--danger);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px 8px;
+    }
+
+    .cart-item-price-val {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .cart-totals-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cart-total-row.grand-total {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+    }
+
+    .empty-cart-msg span {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ── MODALS (Auth, Checkout, Success) ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 3000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      overflow-y: auto;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      background: var(--bg-white);
+      border: 1px solid var(--gold-border);
+      box-shadow: var(--shadow-hover);
+      width: 100%;
+      max-width: 600px;
+      transform: translateY(-20px);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 24px 30px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    /* Auth Modal Specifics */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 24px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .auth-tab.active {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .auth-form {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .auth-form.active {
+      display: flex;
+    }
+
+    .auth-divider {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: var(--border-light);
+    }
+
+    .auth-divider::before {
+      left: 0;
+    }
+
+    .auth-divider::after {
+      right: 0;
+    }
+
+    .btn-oauth {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--tr-fast);
+    }
+
+    .btn-oauth:hover {
+      background: var(--bg-secondary);
+    }
+
+    /* ── CUSTOM TOAST NOTIFICATION ── */
+    .toast-msg {
+      position: fixed;
+      bottom: 100px;
+      left: 30px;
+      background: var(--text-dark);
+      color: var(--bg-primary);
+      padding: 16px 24px;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      font-size: 0.8rem;
+      font-weight: 500;
+      transform: translateY(30px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Ensure toast contrast in dark mode */
+    body.dark-mode .toast-msg {
+      background: var(--bg-white);
+      color: var(--text-dark);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    /* Ensure cart drawer contrast in dark mode */
+    body.dark-mode .drawer-panel,
+    body.dark-mode .drawer-header,
+    body.dark-mode .drawer-body,
+    body.dark-mode .drawer-footer {
+      background: var(--bg-white);
+      color: var(--text-dark);
+      border-color: var(--border-light);
+    }
+
+    body.dark-mode .qty-adjust {
+      background: var(--bg-white);
+      border-color: var(--border-light);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .cart-remove-btn {
+      color: var(--danger);
+    }
+
+    .toast-icon {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* ── FOOTER SECTION ── */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-light);
+      padding: 80px 60px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 60px;
+      max-width: 1250px;
+      margin: 0 auto 60px;
+    }
+
+    .footer-brand h3 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand h3 span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      transition: all var(--tr-fast);
+    }
+
+    .social-icon:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── SCROLL REVEAL CLASS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE DESIGN ── */
+    @media(max-width: 1100px) {
+      #navbar {
+        padding: 20px 40px;
+      }
+
+      #navbar.scrolled {
+        padding: 12px 40px;
+      }
+
+      .breadcrumb-container {
+        padding: 100px 40px 0;
+      }
+
+      .hero-section {
+        padding: 0 40px;
+      }
+
+      .detail-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 40px;
+      }
+
+      .detail-sidebar {
+        position: relative;
+        top: 0;
+      }
+
+      .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 40px;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+      }
+    }
+
+    @media(max-width: 768px) {
+      .nav-links {
+        display: none;
+        /* Hide standard links on mobile */
+      }
+
+      .hero-section {
+        height: 75vh;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .home-section {
+        padding: 60px 20px;
+      }
+
+      .restaurants-search-section {
+        padding: 40px 20px;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .restaurants-list-section {
+        padding: 40px 20px;
+      }
+
+      .menu-items-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .masonry-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .masonry-item.wide {
+        grid-column: span 1;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .category-luxury-card {
+        height: 220px;
+      }
+
+      .offer-row {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 20px;
+      }
+
+      .offer-row:nth-child(even) {
+        direction: ltr;
+      }
+
+      .offer-img-col {
+        height: 250px;
+      }
+
+      .booking-form-container {
+        padding: 30px 20px;
+      }
+
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-map {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .about-row {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .about-row.reverse {
+        direction: ltr;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .awards-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading Animation Overlay -->
+  <div id="loader">
+    <div class="ld-logo">Velvet<span>Bites</span></div>
+    <div class="ld-bar">
+      <div class="ld-fill"></div>
+    </div>
+  </div>
+
+  <!-- Persistent Sticky Reservation Button -->
+  <div id="sticky-reserve-btn" onclick="navigateToHash('reservations')">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+    </svg>
+    <span>Reserve a Table</span>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div id="toast" class="toast-msg">
+    <span id="toast-icon" class="toast-icon">✓</span>
+    <span id="toast-text">Success Message Placeholder</span>
+  </div>
+
+  <!-- ── FLOATING NAVIGATION BAR ── -->
+  <header>
+    <nav id="navbar">
+      <a href="#/" class="nav-logo">Velvet<span>Bites</span></a>
+      <ul class="nav-links">
+        <li><a href="#/" id="nav-home">Home</a></li>
+        <li><a href="#/restaurants" id="nav-restaurants">Discovery</a></li>
+        <li><a href="#/categories" id="nav-categories">Collections</a></li>
+        <li><a href="#/offers" id="nav-offers">Exclusive Packages</a></li>
+        <li><a href="#/about" id="nav-about">Philosophy</a></li>
+        <li><a href="#/contact" id="nav-contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <!-- Cart button -->
+        <button class="btn-nav-action" onclick="toggleCartDrawer(true)"
+          style="display: flex; align-items: center; gap: 8px;">
+          Cart (<span id="cart-counter">0</span>)
+        </button>
+        <button id="theme-toggle-btn" class="btn-nav-action" onclick="toggleTheme()"
+          title="Toggle dark mode">🌙</button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb Indicator Bar -->
+    <div id="breadcrumb" class="breadcrumb-container">
+      <a href="#/">Home</a>
+      <span class="bc-sep">/</span>
+      <span id="bc-current" class="bc-active">Home</span>
+    </div>
+  </header>
+
+  <!-- ── MAIN CONTENT SPA VIEWS ── -->
+  <main id="app-container" style="min-height: 80vh;">
+
+    <!-- 1. Home Page View -->
+    <div id="page-home" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 2. Restaurants Listing Page View -->
+    <div id="page-restaurants" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 3. Restaurant Detail Page View -->
+    <div id="page-restaurant-detail" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 4. Categories Selection Page View -->
+    <div id="page-categories" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 5. Offers Promotional Page View -->
+    <div id="page-offers" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 6. Reservations Booking Page View -->
+    <div id="page-reservations" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 7. About Us Page View -->
+    <div id="page-about" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 8. Contact Us Page View -->
+    <div id="page-contact" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+    <!-- 9. Order Tracking View -->
+    <div id="page-order-tracking" class="page-view">
+      <!-- Dynamic render inside script -->
+    </div>
+
+  </main>
+
+  <!-- ── OVERLAY DRAWER: CART SYSTEM ── -->
+  <div id="cart-drawer-overlay" class="drawer-overlay" onclick="closeCartDrawerOutside(event)">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3 class="drawer-title">Selected Orders</h3>
+        <button class="drawer-close" onclick="toggleCartDrawer(false)">&times;</button>
+      </div>
+      <div class="drawer-body" id="cart-drawer-body">
+        <!-- Rendered dynamically by script -->
+      </div>
+      <div class="drawer-footer" id="cart-drawer-footer">
+        <div class="cart-totals-section" id="cart-totals-container">
+          <!-- Rendered dynamically by script -->
+        </div>
+        <button class="btn-gold-luxury" style="width: 100%;" onclick="openCheckoutModal()">Proceed to Order
+          Checkout</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ── CHECKOUT MODAL ── -->
+  <div id="checkout-modal" class="modal-overlay" onclick="closeModalOutside(event, 'checkout-modal')">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Gourmet Checkout</h3>
+        <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="checkout-modal-body">
+        <!-- Rendered dynamically by script -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUCCESS CONFIRMATION MODAL ── -->
+  <div id="success-modal" class="modal-overlay" onclick="closeModalOutside(event, 'success-modal')">
+    <div class="modal-box" style="max-width: 550px;">
+      <div class="modal-header" style="border: none;">
+        <button class="modal-close" onclick="closeModal('success-modal')" style="margin-left: auto;">&times;</button>
+      </div>
+      <div class="modal-body" id="success-modal-body" style="padding-top: 0;">
+        <!-- Rendered dynamically by script -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER SECTION ── -->
+  <footer>
+    <div class="footer-bottom" style="padding:20px; text-align:center;">
+      <p class="f-copy">© 2026 VelvetBites Copyright</p>
+    </div>
+  </footer>
+
+  <!-- App Core Script -->
+  <script>
+    // VelvetBites Luxury Redesign Core Application Script
+
+    // ══════════════════════════════════════════════
+    //  STATIC DATA DEFINITIONS
+    // ══════════════════════════════════════════════
+
+    const RESTAURANTS = [
+      {
+        id: 1,
+        name: "L'Ambroisie",
+        city: "New Delhi",
+        cuisine: "French Haute Cuisine",
+        rating: 4.9,
+        priceRange: "₹₹₹₹",
+        costForTwo: 12000,
+        distance: "2.4 km",
+        isOpen: true,
+        openTime: "12:30 PM - 11:00 PM",
+        tag: "Fine Dining",
+        coverImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800",
+        description: "An intimate temple of classical French gastronomy, boasting meticulous culinary craft and a historical, gold-accented atmosphere.",
+        story: "Founded on the belief that dining is the highest form of sensory theatre, L'Ambroisie brings three-Michelin-star standards to the capital. Led by Executive Chef Pierre Moreau, every dish is an editorial statement of technique, balance, and pure luxury.",
+        gallery: [
+          "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800", // Table
+          "https://images.unsplash.com/photo-1502301197279-659d7fbd60f6?auto=format&fit=crop&q=80&w=800", // Ambient interior
+          "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800", // Steak dish
+          "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800"  // Pastry dessert
+        ],
+        menu: {
+          starters: [
+            { name: "Caviar de Sologne", price: 3400, desc: "Imperial Osetra caviar served over a delicate crab gelée and celery root purée.", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=300" },
+            { name: "Foie Gras Poêlé", price: 2800, desc: "Pan-seared duck foie gras, heritage quince compote, and a reduction of old Port.", image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Sole Meunière Royale", price: 5800, desc: "Wild-caught Dover sole roasted in brown butter, lemon confit, and seasonal sea asparagus.", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=300" },
+            { name: "Filet de Boeuf Wagyu", price: 7200, desc: "A5 Wagyu tenderloin, black winter truffle potato mousseline, and rich bone marrow jus.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Tarte Fine au Chocolat", price: 1800, desc: "Warm single-origin chocolate tart, Fleur de Sel, and bourbon vanilla bean ice cream.", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Château Margaux 2015", price: 4200, desc: "An exceptional vintage pour, boasting notes of dark berries, violet, and refined cedar.", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Eleanor Vance", avatar: "E", date: "May 24, 2026", rating: 5, comment: "An absolutely flawless dining experience. The Wagyu beef melted in my mouth, and the service was akin to a royal reception. Worthy of its reputation." },
+          { username: "Marcus Sterling", avatar: "M", date: "April 18, 2026", rating: 5, comment: "Bespoke elegance. The sommelier suggested a perfect wine pairing that elevated the caviar. Highly recommend L'Ambroisie for anniversaries." }
+        ]
+      },
+      {
+        id: 2,
+        name: "Aura Rooftop & Lounge",
+        city: "Bengaluru",
+        cuisine: "Contemporary Pan-Asian",
+        rating: 4.8,
+        priceRange: "₹₹₹",
+        costForTwo: 7000,
+        distance: "4.8 km",
+        isOpen: true,
+        openTime: "5:00 PM - 1:00 AM",
+        tag: "Rooftops",
+        coverImage: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&q=80&w=800",
+        description: "Perched high above Bengaluru, Aura offers dynamic botanical architecture, signature mixology, and panoramic cityscape views.",
+        story: "Aura is designed as an urban oasis, blending lush vertical gardens with sleek glass structures. The menu, curated by Chef Kenji Sato, celebrates modern interpretations of classic sushi, dim sum, and wood-fired skewers.",
+        gallery: [
+          "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&q=80&w=800", // Exterior sky
+          "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=800", // Elegant bar
+          "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=800", // Sushi plate
+          "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800"  // Cocktails
+        ],
+        menu: {
+          starters: [
+            { name: "Truffle Edamame Gyoza", price: 950, desc: "Steamed gyozas with white truffle oil and wild mushroom dashi reduction.", image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=300" },
+            { name: "Wagyu Carpaccio Roll", price: 1800, desc: "Seared Wagyu slices wrapped around avocado mousse, topped with black garlic sauce.", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Miso Glazed Cod", price: 3400, desc: "24-hour saikyo-miso marinated black cod roasted over robata charcoal.", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=300" },
+            { name: "Spicy Sichuan Lamb Chops", price: 2800, desc: "Grilled Australian lamb rack coated with aromatic Sichuan pepper crumbles.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Matcha Lava Fondant", price: 850, desc: "Warm Uji matcha cake with a liquid white chocolate heart, and black sesame gelato.", image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Tokyo Drift Sour", price: 900, desc: "Japanese whiskey, freshly pressed yuzu juice, shiso leaf syrup, and egg white froth.", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Nikhil Kamath", avatar: "N", date: "June 2, 2026", rating: 4.8, comment: "The views here are unmatched. Sipping their signature whiskey sour while watching the sunset over the Bengaluru skyline is an experience everyone should have." }
+        ]
+      },
+      {
+        id: 3,
+        name: "The Conservatory & Café",
+        city: "Lucknow",
+        cuisine: "European Artisan Bakery & Bistro",
+        rating: 4.7,
+        priceRange: "₹₹",
+        costForTwo: 3500,
+        distance: "1.2 km",
+        isOpen: true,
+        openTime: "8:00 AM - 10:00 PM",
+        tag: "Cafes",
+        coverImage: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800",
+        description: "A beautifully lit glass conservatory featuring artisan sourdoughs, gourmet coffees, and delicate French pastries.",
+        story: "The Conservatory brings European heritage dining to Hazratganj, Lucknow. Housed under a majestic atrium, we emphasize slow fermentation, ethically sourced coffee beans, and farm-to-table lunch plates.",
+        gallery: [
+          "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800", // Cafe interior
+          "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=800", // Brunch pancakes
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800", // Coffee cup
+          "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=800"  // Dessert cakes
+        ],
+        menu: {
+          starters: [
+            { name: "Avocado Burrata Crostini", price: 750, desc: "Artisan sourdough topped with smashed avocado, Italian burrata, heirloom cherry tomatoes, and aged balsamic.", image: "https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Truffle Wild Mushroom Fettuccine", price: 1250, desc: "House-made egg pasta tossed with porcini mushrooms, parmigiano, and luxurious white truffle emulsion.", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=300" },
+            { name: "Slow Roasted Chicken Thighs", price: 1400, desc: "Free-range chicken baked with garlic, thyme, roasted root vegetables, and natural rosemary glaze.", image: "https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Pistachio Raspberry Mille-Feuille", price: 650, desc: "Crisp puff pastry layers filled with caramelized pistachio cream and fresh raspberries.", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Geisha Pour Over Coffee", price: 480, desc: "Rare Ethiopian Geisha beans hand-brewed over ice, exhibiting jasmine and peach notes.", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Aditi Sharma", avatar: "A", date: "May 30, 2026", rating: 4.5, comment: "Hands down the best place in Lucknow for a Sunday morning. Sourdough is exceptionally airy and the pastries are true works of art." }
+        ]
+      },
+      {
+        id: 4,
+        name: "Céleste Grill & Garden",
+        city: "Mumbai",
+        cuisine: "Italian & Mediterranean Grill",
+        rating: 4.8,
+        priceRange: "₹₹₹₹",
+        costForTwo: 9500,
+        distance: "3.1 km",
+        isOpen: true,
+        openTime: "12:00 PM - 11:30 PM",
+        tag: "Romantic Restaurants",
+        coverImage: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800",
+        description: "An elegant, candlelit courtyard sanctuary by the ocean, specializing in wood-fired coastal delicacies.",
+        story: "Céleste channels the coastal spirit of the Italian Riviera. Dine under a canopy of illuminated olive trees while listening to soft live acoustic jazz. Our open-fire grill highlights prime cuts and fresh catches.",
+        gallery: [
+          "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800", // Garden
+          "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800", // Grill food
+          "https://images.unsplash.com/photo-1502301197279-659d7fbd60f6?auto=format&fit=crop&q=80&w=800", // Evening table
+          "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800"  // Wine glass
+        ],
+        menu: {
+          starters: [
+            { name: "Wood-Fired Octopus", price: 1600, desc: "Tender octopus tentacles charred with smoked paprika, potato confit, and saffron aioli.", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Lobster Ravioli", price: 3800, desc: "Hand-pinched pasta filled with butter-poached Maine lobster in a rich brandy bisque sauce.", image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=300" },
+            { name: "New Zealand Lamb Rack", price: 4200, desc: "Herb-crusted roasted rack, garlic potato mash, and rosemary-infused lamb reduction.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Deconstructed Tiramisu", price: 950, desc: "Mascarpone foam, espresso sponge shards, Kahlúa-infused cocoa, and espresso gelato.", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Céleste Sunset Mocktail", price: 650, desc: "Pressed raspberry juice, rosemary infusion, lime oil, and sparkling wild botanical water.", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Vikram Malhotra", avatar: "V", date: "May 12, 2026", rating: 5, comment: "Simply magical. If you are planning a date night in Mumbai, book a table in their courtyard. Unparalleled romantic vibes, excellent food." }
+        ]
+      },
+      {
+        id: 5,
+        name: "The Chef's Canvas",
+        city: "New Delhi",
+        cuisine: "Modern Indian Gastronomy",
+        rating: 4.9,
+        priceRange: "₹₹₹₹",
+        costForTwo: 11000,
+        distance: "1.9 km",
+        isOpen: true,
+        openTime: "7:00 PM - 11:30 PM",
+        tag: "Celebrity Chef Kitchens",
+        coverImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
+        description: "Led by award-winning Celebrity Chef Rohit Ghai, this space is dedicated to theatrical gastronomy and culinary stories.",
+        story: "Chef Rohit Ghai redefines classic Indian regional cooking using molecular gastronomy, artistic plating, and global ingredients. Guests can sit by the interactive chef's counter and witness menus designed as painted canvases.",
+        gallery: [
+          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800", // Canvas food
+          "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=800", // Chef cooking
+          "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", // Kitchen interior
+          "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=800"  // Creative plating
+        ],
+        menu: {
+          starters: [
+            { name: "Saffron Crab Puri", price: 1450, desc: "Crispy puris filled with soft blue crab meat, saffron mist, and tamarind air.", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Deconstructed Butter Chicken", price: 2450, desc: "Sous-vide chicken roulade in rich charcoal-smoked makhani gravy, served with truffle naan.", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=300" },
+            { name: "Himalayan Morel Biryani", price: 2200, desc: "Aromatic basmati rice layered with stuffed morels, gold leaf garnish, and mint raita.", image: "https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Sandalwood Kulfi Sphere", price: 800, desc: "Frozen sandalwood kulfi encapsulated in white chocolate dome, with dry-ice saffron vapor.", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Smoked Cardamom Elixir", price: 700, desc: "Spiced gin cocktail infused with hickory wood smoke, cardamoms, and rose honey water.", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Kabir Dev", avatar: "K", date: "June 1, 2026", rating: 5, comment: "Rohit Ghai is a magician. The molecular gastronomy elements are not just for show; they genuinely enhance the flavours. Saffron crab was legendary." }
+        ]
+      },
+      {
+        id: 6,
+        name: "The Grand Pavilion",
+        city: "Mumbai",
+        cuisine: "Global Grand Buffet & High Tea",
+        rating: 4.6,
+        priceRange: "₹₹₹",
+        costForTwo: 5500,
+        distance: "5.5 km",
+        isOpen: true,
+        openTime: "12:00 PM - 11:30 PM",
+        tag: "Family Restaurants",
+        coverImage: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
+        description: "An opulent multi-cuisine salon featuring grand circular seating, live carving stations, and artisanal pastries.",
+        story: "Designed for elegant multi-generational gatherings, The Grand Pavilion merges classic hospitality with global tastes. Offering live pasta tossers, prime lamb carvings, and an extensive high tea layout.",
+        gallery: [
+          "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", // Grand Interior
+          "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=800", // Pastries
+          "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800", // Carving
+          "https://images.unsplash.com/photo-1502301197279-659d7fbd60f6?auto=format&fit=crop&q=80&w=800"  // Circular tables
+        ],
+        menu: {
+          starters: [
+            { name: "Artisanal Cheese Board", price: 1200, desc: "A selection of domestic brie, aged cheddar, and blue cheese served with local organic honeycomb.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300" }
+          ],
+          mains: [
+            { name: "Pavilion Prime Roast", price: 2200, desc: "Slow-roasted grass-fed lamb shoulder served with pan jus and wood-roasted baby carrots.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300" }
+          ],
+          desserts: [
+            { name: "Pavilion High Tea Set", price: 1800, desc: "A two-tier sharing stand with warm scones, clotted cream, macarons, and finger sandwiches.", image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=300" }
+          ],
+          beverages: [
+            { name: "Imperial Darjeeling Pot", price: 450, desc: "Premium first flush Darjeeling leaves brewed tableside in fine porcelain.", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=300" }
+          ]
+        },
+        reviews: [
+          { username: "Ramesh Sen", avatar: "R", date: "April 29, 2026", rating: 4.6, comment: "Perfect place for a family Sunday lunch. The grand buffet selection was enormous, covering everything from Italian pasta to North Indian kebabs." }
+        ]
+      }
+    ];
+
+    const COLLECTIONS = [
+      { id: "fine-dining", name: "Fine Dining", tag: "Fine Dining", count: "12 Restaurants", coverImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800", desc: "Michelin-inspired culinary arts and premium tables." },
+      { id: "rooftops", name: "Rooftop Dining", tag: "Rooftops", count: "8 Restaurants", coverImage: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&q=80&w=800", desc: "Dine amidst the clouds with breathtaking skylines." },
+      { id: "cafes", name: "Aesthetic Cafés", tag: "Cafes", count: "15 Cafés", coverImage: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800", desc: "Elegant bakeries, pour-overs, and slow afternoons." },
+      { id: "romantic", name: "Romantic Hideaways", tag: "Romantic Restaurants", count: "9 Venues", coverImage: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800", desc: "Candlelit tables, fine vintage selections, and soft jazz." },
+      { id: "family", name: "Family Assemblies", tag: "Family Restaurants", count: "11 Venues", coverImage: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", desc: "Opulent seating arrangements for memorable gatherings." },
+      { id: "brunch", name: "Brunch Destinations", tag: "Cafes", count: "6 Spots", coverImage: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=800", desc: "Champagne pourings, fresh pastries, and light mornings." },
+      { id: "chefs", name: "Celebrity Chef Tables", tag: "Celebrity Chef Kitchens", count: "4 Kitchens", coverImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800", desc: "Witness culinary boundaries broken by legendary chefs." }
+    ];
+
+    const POPULAR_CITIES = [
+      { name: "Lucknow", count: "18 Exclusive Venues", image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=500" },
+      { name: "New Delhi", count: "24 Michelin-Grade Venues", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=500" },
+      { name: "Mumbai", count: "32 Harbourside Venues", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=500" },
+      { name: "Bengaluru", count: "21 Rooftop Lounges", image: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&q=80&w=500" }
+    ];
+
+    const TESTIMONIALS = [
+      { quote: "VelvetBites has completely redefined how I plan my evenings. The reservation engine is fluid, and their recommendations match my fine dining expectations.", name: "Sanjay Singhania", role: "Connoisseur Club Member", av: "S" },
+      { quote: "L'Ambroisie's Wagyu beef paired with the 2015 Château Margaux was absolute poetry. The table selection was exactly what we selected online.", name: "Dr. Natasha Roy", role: "Lifestyle Journalist", av: "N" },
+      { quote: "The chef tasting packages are exceptionally premium. Truly a Michelin-grade digital concierge service.", name: "Aria Oberoi", role: "Luxury Brand Consultant", av: "A" }
+    ];
+
+    const OFFERS = [
+      { id: 1, badge: "Chef's Curated Experience", name: "Seasonal Six-Course Tasting", code: "CHEFSTAGE", price: 8500, oldPrice: 10000, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800", desc: "An exclusive six-course pairing menu crafted by our award-winning head chefs. Features premium local ingredients, table presentation theatre, and organic honey-infused spirits." },
+      { id: 2, badge: "Couple Gastronomy Package", name: "Intimate Courtyard Dinner", code: "ROMANCEVIP", price: 9500, oldPrice: 12000, image: "https://images.unsplash.com/photo-1502301197279-659d7fbd60f6?auto=format&fit=crop&q=80&w=800", desc: "A private evening in our candlelit olive tree garden. Includes a three-course customized dinner, two glasses of vintage sparkling cider, and a personalized dessert message." },
+      { id: 3, badge: "Luxury Weekend Brunch", name: "Unlimited Champagne & Oysters", code: "BRUNCH50", price: 4500, oldPrice: 6000, image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=800", desc: "Indulge in Sunday elegance with premium roasted meats, cold water oysters on ice, fresh pastries, and endless flows of top-grade French champagne." }
+    ];
+
+    // ══════════════════════════════════════════════
+    //  APPLICATION STATE
+    // ══════════════════════════════════════════════
+
+    let appState = {
+      cart: [],
+      likedRestaurants: new Set(),
+      reservations: [
+        { id: "RES-8821", restaurantName: "L'Ambroisie", date: "2026-06-08", time: "08:30 PM", guests: 2, occasion: "Anniversary", tableNum: 3, status: "Confirmed" },
+        { id: "RES-1142", restaurantName: "Aura Rooftop & Lounge", date: "2026-06-12", time: "09:00 PM", guests: 4, occasion: "Business Meeting", tableNum: 6, status: "Confirmed" }
+      ],
+      orders: [
+        { id: "ORD-9932", date: "June 2, 2026", items: [{ name: "Truffle Edamame Gyoza", qty: 2 }, { name: "Tokyo Drift Sour", qty: 2 }], total: 3700, status: "Completed" }
+      ],
+      currentUser: null,
+      currentRoute: "/",
+      searchFilters: {
+        query: "",
+        city: "all",
+        cuisine: "all",
+        tag: "all"
+      },
+      selectedOccasion: "",
+      selectedTableSlot: null,
+      activeDetailCarouselIndex: 0,
+      activeDetailMenuTab: "starters"
+    };
+
+    // ══════════════════════════════════════════════
+    //  ROUTING ENGINE
+    // ══════════════════════════════════════════════
+
+    function handleRouteChange() {
+      const hash = window.location.hash || "#/";
+      appState.currentRoute = hash;
+
+      // Clear active pages
+      document.querySelectorAll(".page-view").forEach(p => {
+        p.classList.remove("active", "fade-in");
+      });
+
+      // Highlight active nav links
+      document.querySelectorAll(".nav-links a").forEach(l => l.classList.remove("active"));
+
+      // Check matching route
+      if (hash === "#/" || hash === "#") {
+        document.getElementById("nav-home").classList.add("active");
+        updateBreadcrumb("Home");
+        renderHome();
+      } else if (hash.startsWith("#/restaurants")) {
+        document.getElementById("nav-restaurants").classList.add("active");
+        updateBreadcrumb("Discovery Portal");
+
+        // Parse query params if any
+        const params = new URLSearchParams(hash.split("?")[1] || "");
+        appState.searchFilters.city = params.get("city") || "all";
+        appState.searchFilters.tag = params.get("tag") || "all";
+        appState.searchFilters.query = params.get("query") || "";
+
+        renderRestaurants();
+      } else if (hash.startsWith("#/restaurant/")) {
+        const id = parseInt(hash.split("/")[2]);
+        updateBreadcrumb("Discovery Portal", `Restaurant Detail`);
+        renderRestaurantDetail(id);
+      } else if (hash === "#/categories") {
+        document.getElementById("nav-categories").classList.add("active");
+        updateBreadcrumb("Collections");
+        renderCategories();
+      } else if (hash === "#/offers") {
+        document.getElementById("nav-offers").classList.add("active");
+        updateBreadcrumb("Exclusive Packages");
+        renderOffers();
+      } else if (hash === "#/reservations") {
+        updateBreadcrumb("Table Reservation");
+        renderReservations();
+      } else if (hash === "#/about") {
+        document.getElementById("nav-about").classList.add("active");
+        updateBreadcrumb("Our Philosophy");
+        renderAbout();
+      } else if (hash === "#/contact") {
+        document.getElementById("nav-contact").classList.add("active");
+        updateBreadcrumb("Concierge Contact");
+        renderContact();
+      } else {
+        // 404 fallback
+        window.location.hash = "#/";
+      }
+
+      // Smooth scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Re-run scroll reveal checks
+      setTimeout(checkScrollReveal, 100);
+    }
+
+    function updateBreadcrumb(parent, child = null) {
+      const container = document.getElementById("breadcrumb");
+      if (!container) return;
+
+      if (parent === "Home") {
+        container.style.display = "none";
+      } else {
+        container.style.display = "block";
+        let html = `<a href="#/">Home</a> <span>/</span> <a href="#/${parent.toLowerCase().replace(" ", "")}">${parent}</a>`;
+        if (child) {
+          html += ` <span>/</span> <span class="bc-active">${child}</span>`;
+        } else {
+          html = `<a href="#/">Home</a> <span>/</span> <span class="bc-active">${parent}</span>`;
+        }
+        container.innerHTML = html;
+      }
+    }
+
+    function navigateToHash(hash, params = "") {
+      window.location.hash = `#/${hash}${params}`;
+    }
+
+    // ══════════════════════════════════════════════
+    //  GLOBAL WIDGET INTERACTION
+    // ══════════════════════════════════════════════
+
+    // Toast
+    function showToast(iconText, msg) {
+      const el = document.getElementById("toast");
+      const icon = document.getElementById("toast-icon");
+      const text = document.getElementById("toast-text");
+
+      icon.textContent = iconText;
+      text.textContent = msg;
+
+      el.classList.add("show");
+      setTimeout(() => {
+        el.classList.remove("show");
+      }, 3000);
+    }
+
+    function applyThemeMode(mode) {
+      const isDark = mode === "dark";
+      document.body.classList.toggle("dark-mode", isDark);
+      const btn = document.getElementById("theme-toggle-btn");
+      if (btn) {
+        btn.textContent = isDark ? "☀️" : "🌙";
+        btn.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+      }
+      localStorage.setItem("velvet-theme", mode);
+    }
+
+    function initTheme() {
+      const storedMode = localStorage.getItem("velvet-theme");
+      const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      applyThemeMode(storedMode || preferred);
+    }
+
+    function toggleTheme() {
+      const nextMode = document.body.classList.contains("dark-mode") ? "light" : "dark";
+      applyThemeMode(nextMode);
+    }
+
+    // Loader
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      if (loader) {
+        setTimeout(() => {
+          loader.classList.add("gone");
+        }, 1200);
+      }
+    });
+
+    // Float Nav scrolled effect
+    window.addEventListener("scroll", () => {
+      const navbar = document.getElementById("navbar");
+      if (navbar) {
+        if (window.scrollY > 40) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      }
+      checkScrollReveal();
+    });
+
+    // Scroll Reveal
+    function checkScrollReveal() {
+      document.querySelectorAll(".reveal").forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          el.classList.add("revealed");
+        }
+      });
+    }
+
+    // ══════════════════════════════════════════════
+    //  VIEW RENDERERS
+    // ══════════════════════════════════════════════
+
+    // 1. HOME VIEW
+    function renderHome() {
+      const page = document.getElementById("page-home");
+      page.innerHTML = `
+        <!-- Hero Slider -->
+        <section class="hero-section">
+          <div class="hero-slider-bg">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1500" alt="Luxury Steakhouse Dine">
+          </div>
+          <div class="hero-overlay"></div>
+          <div class="hero-content reveal">
+            <div class="hero-badge">
+              <div class="hero-badge-dot"></div>
+              <span>Bespoke Concierge Discovery</span>
+            </div>
+            <h1 class="hero-title">Curated Dining <em>Experiences</em> Worth Remembering</h1>
+            <p class="hero-subtitle">Discover exceptional restaurants, handcrafted culinary menus, and unforgettable evenings customized by taste.</p>
+            <div class="hero-actions">
+              <button class="btn-gold-luxury" onclick="navigateToHash('restaurants')">Explore Restaurants</button>
+              <button class="btn-luxury" onclick="navigateToHash('reservations')">Reserve a Table</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Signature Dining Collections -->
+        <section class="home-section">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Visual Edit</span>
+            <h2 class="section-title">Signature Dining <em>Collections</em></h2>
+            <p class="section-desc">Hand-selected culinary venues cataloged by distinct culinary moods and atmospheric themes.</p>
+          </div>
+
+          <div class="collections-grid reveal">
+            ${COLLECTIONS.map(c => `
+              <div class="collection-card" onclick="navigateToHash('restaurants', '?tag=${encodeURIComponent(c.tag)}')">
+                <img src="${c.coverImage}" alt="${c.name}">
+                <div class="collection-card-overlay">
+                  <span class="collection-subtitle">${c.count}</span>
+                  <h3 class="collection-title">${c.name}</h3>
+                  <p class="collection-desc">${c.desc}</p>
+                  <span class="collection-link">Browse Gallery &rarr;</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+
+        <!-- Popular Cities Section -->
+        <section class="home-section beige">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Urban Gateways</span>
+            <h2 class="section-title">Destinations <em>Of Interest</em></h2>
+            <p class="section-desc">Experience premium dining across India's culinary capitals.</p>
+          </div>
+
+          <div class="city-grid reveal">
+            ${POPULAR_CITIES.map(city => `
+              <div class="city-card" onclick="navigateToHash('restaurants', '?city=${encodeURIComponent(city.name)}')">
+                <img src="${city.image}" alt="${city.name}">
+                <div class="city-overlay">
+                  <h3 class="city-name">${city.name}</h3>
+                  <span class="city-count">${city.count}</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="home-section">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Patron Stories</span>
+            <h2 class="section-title">Verified Guest <em>Experiences</em></h2>
+          </div>
+
+          <div class="testimonials-slider reveal">
+            <div class="testimonial-quote">
+              "${TESTIMONIALS[0].quote}"
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-author">
+              <div class="testimonial-av">
+                <span style="font-weight:600; font-size:1.2rem; color:var(--gold); display:flex; align-items:center; justify-content:center; height:100%;">${TESTIMONIALS[0].av}</span>
+              </div>
+              <div class="testimonial-info">
+                <h4 class="testimonial-name">${TESTIMONIALS[0].name}</h4>
+                <p class="testimonial-role">${TESTIMONIALS[0].role}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      // Show page
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    // 2. RESTAURANTS VIEW
+    function renderRestaurants() {
+      const page = document.getElementById("page-restaurants");
+
+      // Load unique cuisines from static data
+      const cuisines = [...new Set(RESTAURANTS.map(r => r.cuisine.split(" & ").flat()).flat())];
+      const cities = [...new Set(RESTAURANTS.map(r => r.city))];
+
+      // Filtering Logic
+      const filtered = RESTAURANTS.filter(r => {
+        const matchesQuery = r.name.toLowerCase().includes(appState.searchFilters.query.toLowerCase()) ||
+          r.cuisine.toLowerCase().includes(appState.searchFilters.query.toLowerCase()) ||
+          r.city.toLowerCase().includes(appState.searchFilters.query.toLowerCase());
+
+        const matchesCity = appState.searchFilters.city === "all" || r.city === appState.searchFilters.city;
+        const matchesCuisine = appState.searchFilters.cuisine === "all" || r.cuisine.includes(appState.searchFilters.cuisine);
+        const matchesTag = appState.searchFilters.tag === "all" || r.tag === appState.searchFilters.tag;
+
+        return matchesQuery && matchesCity && matchesCuisine && matchesTag;
+      });
+
+      page.innerHTML = `
+        <!-- Luxury Search Bar Row -->
+        <section class="restaurants-search-section">
+          <div class="search-filter-container reveal">
+            <div class="search-row">
+              <div class="input-luxury-wrap">
+                <input type="text" class="input-luxury" id="rest-search-input" value="${appState.searchFilters.query}" placeholder="Search restaurant name, culinary styles, or cities..." oninput="handleSearchInput(this.value)">
+              </div>
+              <div class="select-wrapper">
+                <select class="select-luxury" id="rest-city-select" onchange="handleCityFilter(this.value)">
+                  <option value="all">All Destinations</option>
+                  ${cities.map(c => `<option value="${c}" ${appState.searchFilters.city === c ? "selected" : ""}>${c}</option>`).join("")}
+                </select>
+              </div>
+              <div class="select-wrapper">
+                <select class="select-luxury" id="rest-cuisine-select" onchange="handleCuisineFilter(this.value)">
+                  <option value="all">All Cuisines</option>
+                  ${cuisines.map(c => `<option value="${c}" ${appState.searchFilters.cuisine === c ? "selected" : ""}>${c}</option>`).join("")}
+                </select>
+              </div>
+            </div>
+
+            <!-- Filter Chips Row -->
+            <div class="filters-bar">
+              <button class="filter-btn ${appState.searchFilters.tag === "all" ? "active" : ""}" onclick="handleTagFilter('all')">All Dining</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Fine Dining" ? "active" : ""}" onclick="handleTagFilter('Fine Dining')">Fine Dining</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Rooftops" ? "active" : ""}" onclick="handleTagFilter('Rooftops')">Rooftops</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Cafes" ? "active" : ""}" onclick="handleTagFilter('Cafes')">Cafés</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Romantic Restaurants" ? "active" : ""}" onclick="handleTagFilter('Romantic Restaurants')">Romantic</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Family Restaurants" ? "active" : ""}" onclick="handleTagFilter('Family Restaurants')">Family Friendly</button>
+              <button class="filter-btn ${appState.searchFilters.tag === "Celebrity Chef Kitchens" ? "active" : ""}" onclick="handleTagFilter('Celebrity Chef Kitchens')">Chef Kitchens</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Restaurants List Grid -->
+        <section class="restaurants-list-section">
+          <div class="results-count reveal">
+            Showing ${filtered.length} exceptional dining venues matching filters
+          </div>
+
+          ${filtered.length === 0 ? `
+            <div class="no-results reveal">
+              No luxury restaurants match your current filter selections.
+            </div>
+          ` : `
+            <div class="restaurant-grid reveal">
+              ${filtered.map(r => {
+        const isLiked = appState.likedRestaurants.has(r.id);
+        return `
+                  <div class="luxury-card">
+                    <div class="card-img-wrap">
+                      <img src="${r.coverImage}" alt="${r.name}">
+                      <div class="card-tag">${r.tag}</div>
+                      <button class="card-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeRestaurant(event, ${r.id})">
+                        ${isLiked ? '♥' : '♡'}
+                      </button>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-meta-row">
+                        <span>${r.cuisine}</span>
+                        <div class="card-rating">
+                          <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                          <span>${r.rating}</span>
+                        </div>
+                      </div>
+                      <h3 class="card-title">${r.name}</h3>
+                      <p class="card-desc">${r.description}</p>
+                      
+                      <div class="card-info-footer">
+                        <span>Avg Cost: <strong>₹${r.costForTwo.toLocaleString()}</strong></span>
+                        <span>Distance: <strong>${r.distance}</strong></span>
+                        <span style="color:${r.isOpen ? 'var(--success)' : 'var(--danger)'}; font-weight:600;">
+                          ${r.isOpen ? 'Open Now' : 'Closed'}
+                        </span>
+                      </div>
+
+                      <div class="card-actions">
+                        <button class="btn-secondary-luxury" onclick="navigateToHash('restaurant/${r.id}')">View Details</button>
+                        <button class="btn-gold-luxury" onclick="handleBookNowRedirect(${r.id})">Book Table</button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+      }).join("")}
+            </div>
+          `}
+        </section>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    function handleSearchInput(val) {
+      appState.searchFilters.query = val;
+      renderRestaurants();
+    }
+    function handleCityFilter(val) {
+      appState.searchFilters.city = val;
+      renderRestaurants();
+    }
+    function handleCuisineFilter(val) {
+      appState.searchFilters.cuisine = val;
+      renderRestaurants();
+    }
+    function handleTagFilter(val) {
+      appState.searchFilters.tag = val;
+      renderRestaurants();
+    }
+
+    function handleBookNowRedirect(id) {
+      const r = RESTAURANTS.find(x => x.id === id);
+      appState.selectedRestaurantForBooking = r.name;
+      navigateToHash("reservations");
+    }
+
+    function toggleLikeRestaurant(e, id) {
+      e.stopPropagation();
+      if (appState.likedRestaurants.has(id)) {
+        appState.likedRestaurants.delete(id);
+        showToast("🤍", "Removed from your luxury collection");
+      } else {
+        appState.likedRestaurants.add(id);
+        showToast("♥", "Added to your luxury collection");
+      }
+      if (appState.currentRoute === "#/restaurants" || appState.currentRoute.startsWith("#/restaurants?")) {
+        renderRestaurants();
+      }
+    }
+
+    // 3. RESTAURANT DETAIL VIEW
+    function renderRestaurantDetail(id) {
+      const page = document.getElementById("page-restaurant-detail");
+      const r = RESTAURANTS.find(x => x.id === id);
+      if (!r) {
+        navigateToHash("restaurants");
+        return;
+      }
+
+      appState.activeDetailCarouselIndex = 0;
+
+      page.innerHTML = `
+        <!-- Hero Slider Gallery -->
+        <div class="detail-hero-section">
+          <div class="detail-carousel" id="detail-carousel-slider">
+            ${r.gallery.map(g => `
+              <div class="detail-slide">
+                <img src="${g}" alt="Ambience aspect">
+              </div>
+            `).join("")}
+          </div>
+          
+          <button class="carousel-btn prev" onclick="slideCarousel(-1)">&larr;</button>
+          <button class="carousel-btn next" onclick="slideCarousel(1)">&rarr;</button>
+
+          <div class="carousel-indicators">
+            ${r.gallery.map((g, idx) => `
+              <div class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="setCarouselSlide(${idx})"></div>
+            `).join("")}
+          </div>
+
+          <div class="detail-header-overlay">
+            <div class="detail-cuisine">${r.cuisine}</div>
+            <h1 class="detail-title">${r.name}</h1>
+            <div class="detail-quick-meta">
+              <span>★ ${r.rating} Rating</span>
+              <span>•</span>
+              <span>${r.priceRange} Price Tier</span>
+              <span>•</span>
+              <span>${r.openTime}</span>
+              <span>•</span>
+              <span>${r.city}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Detail Layout -->
+        <div class="detail-layout">
+          <!-- Main Columns -->
+          <div class="detail-main reveal">
+            <!-- Story / About -->
+            <div class="detail-card-section">
+              <h2 class="detail-sec-title">About the Concept</h2>
+              <p class="story-text">${r.story}</p>
+            </div>
+
+            <!-- Dynamic Menu Selector -->
+            <div class="detail-card-section">
+              <h2 class="detail-sec-title">Artisan Menu</h2>
+              <div class="menu-categories-tabs">
+                <button class="menu-tab active" id="tab-menu-starters" onclick="switchDetailMenuTab('starters', ${r.id})">Starters</button>
+                <button class="menu-tab" id="tab-menu-mains" onclick="switchDetailMenuTab('mains', ${r.id})">Main Course</button>
+                <button class="menu-tab" id="tab-menu-desserts" onclick="switchDetailMenuTab('desserts', ${r.id})">Desserts</button>
+                <button class="menu-tab" id="tab-menu-beverages" onclick="switchDetailMenuTab('beverages', ${r.id})">Beverages</button>
+              </div>
+
+              <div class="menu-items-grid" id="menu-items-container">
+                <!-- Rendered by switchDetailMenuTab -->
+              </div>
+            </div>
+
+            <!-- Masonry Atmosphere Gallery -->
+            <div class="detail-card-section">
+              <h2 class="detail-sec-title">Gallery of Atmosphere</h2>
+              <div class="masonry-gallery">
+                <div class="masonry-item wide tall">
+                  <img src="${r.gallery[0]}" alt="Atmosphere aspect 1">
+                </div>
+                <div class="masonry-item">
+                  <img src="${r.gallery[1]}" alt="Atmosphere aspect 2">
+                </div>
+                <div class="masonry-item tall">
+                  <img src="${r.gallery[2]}" alt="Atmosphere aspect 3">
+                </div>
+                <div class="masonry-item wide">
+                  <img src="${r.gallery[3]}" alt="Atmosphere aspect 4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Verified Reviews Section -->
+            <div class="detail-card-section">
+              <h2 class="detail-sec-title">Patron Reviews</h2>
+              <div class="reviews-container">
+                ${r.reviews.map(rev => `
+                  <div class="review-item">
+                    <div class="review-user-av">
+                      <span style="font-weight:600; display:flex; align-items:center; justify-content:center; height:100%; background:var(--gold-dim); color:var(--gold);">${rev.avatar}</span>
+                    </div>
+                    <div class="review-content">
+                      <div class="review-header">
+                        <h4 class="review-username">${rev.username}</h4>
+                        <span class="review-date">${rev.date}</span>
+                      </div>
+                      <div class="review-rating">${"★".repeat(rev.rating)}</div>
+                      <p class="review-text">${rev.comment}</p>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          </div>
+
+          <!-- Sticky Sidebar Booking Form -->
+          <div class="detail-sidebar reveal">
+            <div class="booking-widget">
+              <h3 class="booking-title">Book a Premium Table</h3>
+              
+              <div class="booking-field">
+                <label class="booking-label">Date Selection</label>
+                <input type="date" class="booking-input" id="detail-book-date" value="2026-06-08">
+              </div>
+              <div class="booking-field">
+                <label class="booking-label">Time Selection</label>
+                <select class="booking-input" id="detail-book-time">
+                  <option value="12:30 PM">12:30 PM</option>
+                  <option value="01:30 PM">01:30 PM</option>
+                  <option value="07:00 PM">07:00 PM</option>
+                  <option value="08:30 PM" selected>08:30 PM</option>
+                  <option value="09:30 PM">09:30 PM</option>
+                </select>
+              </div>
+              <div class="booking-field">
+                <label class="booking-label">Total Guests</label>
+                <select class="booking-input" id="detail-book-guests">
+                  <option value="1">1 Person</option>
+                  <option value="2" selected>2 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="6">6 Guests</option>
+                  <option value="8">Large Table (8+)</option>
+                </select>
+              </div>
+
+              <button class="btn-gold-luxury" style="width: 100%; margin-top: 10px;" onclick="handleDetailReserve('${r.name}')">Request Reservation</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+
+      switchDetailMenuTab("starters", r.id);
+    }
+
+    // Carousel controls
+    function slideCarousel(dir) {
+      const slider = document.getElementById("detail-carousel-slider");
+      if (!slider) return;
+      const slideCount = slider.children.length;
+      appState.activeDetailCarouselIndex = (appState.activeDetailCarouselIndex + dir + slideCount) % slideCount;
+
+      slider.style.transform = `translateX(-${appState.activeDetailCarouselIndex * 20}%)`;
+
+      const dots = document.querySelectorAll(".carousel-dot");
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === appState.activeDetailCarouselIndex);
+      });
+    }
+
+    function setCarouselSlide(idx) {
+      const slider = document.getElementById("detail-carousel-slider");
+      if (!slider) return;
+      appState.activeDetailCarouselIndex = idx;
+      slider.style.transform = `translateX(-${idx * 20}%)`;
+
+      const dots = document.querySelectorAll(".carousel-dot");
+      dots.forEach((dot, dIdx) => {
+        dot.classList.toggle("active", dIdx === idx);
+      });
+    }
+
+    // Menu switching
+    function switchDetailMenuTab(category, restId) {
+      appState.activeDetailMenuTab = category;
+      const r = RESTAURANTS.find(x => x.id === restId);
+      if (!r) return;
+
+      document.querySelectorAll(".menu-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.id === `tab-menu-${category}`);
+      });
+
+      const items = r.menu[category] || [];
+      const container = document.getElementById("menu-items-container");
+      if (container) {
+        container.innerHTML = items.map(item => `
+          <div class="menu-item-card">
+            <img class="menu-item-img" src="${item.image}" alt="${item.name}">
+            <div class="menu-item-info">
+              <div class="menu-item-header">
+                <h4 class="menu-item-name">${item.name}</h4>
+                <span class="menu-item-price">₹${item.price.toLocaleString()}</span>
+              </div>
+              <p class="menu-item-desc">${item.desc}</p>
+              <button class="menu-item-add-btn" data-item-name="${encodeURIComponent(item.name)}" data-price="${item.price}" data-restaurant="${encodeURIComponent(r.name)}" data-image="${encodeURIComponent(item.image)}">+ Add to Order</button>
+            </div>
+          </div>
+        `).join("");
+      }
+    }
+
+    // Direct Reservation from details
+    function handleDetailReserve(restaurantName) {
+      const date = document.getElementById("detail-book-date").value;
+      const time = document.getElementById("detail-book-time").value;
+      const guests = parseInt(document.getElementById("detail-book-guests").value);
+
+      const newRes = {
+        id: `RES-${Math.floor(1000 + Math.random() * 9000)}`,
+        restaurantName,
+        date,
+        time,
+        guests,
+        occasion: "Dining",
+        tableNum: Math.floor(1 + Math.random() * 10),
+        status: "Confirmed"
+      };
+
+      appState.reservations.unshift(newRes);
+      if (appState.currentUser) {
+        appState.currentUser.points += 150;
+      }
+
+      const successModalBody = document.getElementById("success-modal-body");
+      successModalBody.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+          <span style="font-size: 3.5rem; color: var(--gold); display: block; margin-bottom: 20px;">🏆</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; margin-bottom: 8px;">Reservation Complete</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">Your table has been reserved at <strong>${restaurantName}</strong>.</p>
+          
+          <div style="text-align: left; background: var(--bg-primary); border: 1px solid var(--gold-border); padding: 24px; margin-bottom: 24px; font-size: 0.85rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Booking Reference:</span><strong style="color:var(--text-dark)">#${newRes.id}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Date:</span><strong style="color:var(--text-dark)">${newRes.date}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Arrival Time:</span><strong style="color:var(--text-dark)">${newRes.time}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Total Guests:</span><strong style="color:var(--text-dark)">${newRes.guests} Persons</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Assigned Table:</span><strong style="color:var(--gold)">Luxury Slot #${newRes.tableNum}</strong></div>
+          </div>
+
+          <div style="background: var(--gold-dim); border: 1px solid var(--gold); padding: 12px; font-size: 0.75rem; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.05em; text-transform: uppercase;">
+            +150 Velvet Points Credited to Account
+          </div>
+
+          <button class="btn-gold-luxury" style="width: 100%;" onclick="closeModal('success-modal'); navigateToHash('profile');">View Account Dashboard</button>
+        </div>
+      `;
+
+      openModal("success-modal");
+    }
+
+    // 4. CATEGORIES VIEW
+    function renderCategories() {
+      const page = document.getElementById("page-categories");
+      page.innerHTML = `
+        <section class="categories-banner-section">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Luxury Spheres</span>
+            <h2 class="section-title">Atmospheric <em>Collections</em></h2>
+            <p class="section-desc">Each dining environment offers a customized culinary aesthetic and a dedicated narrative.</p>
+          </div>
+
+          <div class="categories-grid reveal">
+            ${COLLECTIONS.map(c => `
+              <div class="category-luxury-card" onclick="navigateToHash('restaurants', '?tag=${encodeURIComponent(c.tag)}')">
+                <img src="${c.coverImage}" alt="${c.name}">
+                <div class="category-luxury-overlay">
+                  <h3 class="category-luxury-title">${c.name}</h3>
+                  <span class="category-luxury-count">${c.count}</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    // 5. OFFERS VIEW
+    function renderOffers() {
+      const page = document.getElementById("page-offers");
+      page.innerHTML = `
+        <section class="offers-section">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Club Curations</span>
+            <h2 class="section-title">Premium <em>Gastronomy Packages</em></h2>
+            <p class="section-desc">Avoid corporate coupons. We curate bespoke packages for discerning gourmands.</p>
+          </div>
+
+          <div class="offers-luxury-list reveal">
+            ${OFFERS.map(o => `
+              <div class="offer-row">
+                <div class="offer-img-col">
+                  <img src="${o.image}" alt="${o.name}">
+                </div>
+                <div class="offer-info-col">
+                  <span class="offer-badge">${o.badge}</span>
+                  <h3 class="offer-name">${o.name}</h3>
+                  <p class="offer-description">${o.desc}</p>
+                  
+                  <div class="offer-pricing-row">
+                    <span>Club Rate:</span>
+                    <span class="offer-price-val">₹${o.price.toLocaleString()}</span>
+                    <span class="offer-price-old">₹${o.oldPrice.toLocaleString()}</span>
+                  </div>
+
+                  <div class="offer-code-card">Concierge Code: ${o.code}</div>
+                  
+                  <button class="btn-gold-luxury" style="align-self: flex-start; margin-top: 10px;" onclick="handleBookOfferRedirect('${o.name}')">Book Exclusive Package</button>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    function handleBookOfferRedirect(offerName) {
+      appState.selectedRestaurantForBooking = `Special Package: ${offerName}`;
+      navigateToHash("reservations");
+    }
+
+    // 6. RESERVATIONS VIEW
+    function renderReservations() {
+      const page = document.getElementById("page-reservations");
+      const defaultRestaurant = appState.selectedRestaurantForBooking || RESTAURANTS[0].name;
+
+      page.innerHTML = `
+        <section class="reservations-section">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Concierge Desk</span>
+            <h2 class="section-title">Table <em>Reservation Portal</em></h2>
+            <p class="section-desc">Select your date, guest arrangement, and preferred seating layout. Our table host will guarantee the slot.</p>
+          </div>
+
+          <div class="booking-form-container reveal">
+            <!-- Step 1: Restaurant and Slot -->
+            <div class="booking-step">
+              <h3 class="booking-step-title">
+                <span class="booking-step-num">1</span>
+                <span>Venue & Schedule Selection</span>
+              </h3>
+              <div class="booking-grid">
+                <div class="booking-field">
+                  <label class="booking-label">Restaurant / Experience</label>
+                  <select class="select-luxury" id="book-portal-rest">
+                    ${RESTAURANTS.map(x => `<option value="${x.name}" ${x.name === defaultRestaurant ? "selected" : ""}>${x.name}</option>`).join("")}
+                    ${OFFERS.map(x => `<option value="Special Package: ${x.name}" ${`Special Package: ${x.name}` === defaultRestaurant ? "selected" : ""}>Special: ${x.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="booking-field">
+                  <label class="booking-label">Date</label>
+                  <input type="date" class="input-luxury" id="book-portal-date" value="2026-06-08">
+                </div>
+                <div class="booking-field">
+                  <label class="booking-label">Preferred Time Slot</label>
+                  <select class="select-luxury" id="book-portal-time">
+                    <option value="12:30 PM">Lunch — 12:30 PM</option>
+                    <option value="01:30 PM">Lunch — 01:30 PM</option>
+                    <option value="07:00 PM">Dinner — 07:00 PM</option>
+                    <option value="08:30 PM" selected>Dinner — 08:30 PM</option>
+                    <option value="09:30 PM">Dinner — 09:30 PM</option>
+                  </select>
+                </div>
+                <div class="booking-field">
+                  <label class="booking-label">Guest Count</label>
+                  <select class="select-luxury" id="book-portal-guests">
+                    <option value="1">1 Person</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="6">6 Guests</option>
+                    <option value="8">Large Assembly (8+)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Seating Chart -->
+            <div class="booking-step">
+              <h3 class="booking-step-title">
+                <span class="booking-step-num">2</span>
+                <span>Interactive Table Selection</span>
+              </h3>
+              <div class="table-map-container">
+                <div class="table-map">
+                  <div class="table-slot occupied" onclick="showToast('🚫', 'This premier table is currently reserved')">
+                    <span class="table-num">T1</span>
+                    <span class="table-capacity">2 Pax</span>
+                  </div>
+                  <div class="table-slot" id="table-slot-2" onclick="selectTableSlot(2)">
+                    <span class="table-num">T2</span>
+                    <span class="table-capacity">2 Pax</span>
+                  </div>
+                  <div class="table-slot occupied" onclick="showToast('🚫', 'This premier table is currently reserved')">
+                    <span class="table-num">T3</span>
+                    <span class="table-capacity">4 Pax</span>
+                  </div>
+                  <div class="table-slot" id="table-slot-4" onclick="selectTableSlot(4)">
+                    <span class="table-num">T4</span>
+                    <span class="table-capacity">4 Pax</span>
+                  </div>
+                  <div class="table-slot" id="table-slot-5" onclick="selectTableSlot(5)">
+                    <span class="table-num">T5</span>
+                    <span class="table-capacity">6 Pax</span>
+                  </div>
+                  <div class="table-slot occupied" onclick="showToast('🚫', 'This premier table is currently reserved')">
+                    <span class="table-num">T6</span>
+                    <span class="table-capacity">2 Pax</span>
+                  </div>
+                  <div class="table-slot" id="table-slot-7" onclick="selectTableSlot(7)">
+                    <span class="table-num">T7</span>
+                    <span class="table-capacity">8 Pax</span>
+                  </div>
+                  <div class="table-slot" id="table-slot-8" onclick="selectTableSlot(8)">
+                    <span class="table-num">T8</span>
+                    <span class="table-capacity">4 Pax</span>
+                  </div>
+                </div>
+
+                <div class="table-legend">
+                  <div class="legend-item"><div class="legend-dot available"></div><span>Available</span></div>
+                  <div class="legend-item"><div class="legend-dot selected"></div><span>Selected</span></div>
+                  <div class="legend-item"><div class="legend-dot occupied"></div><span>Reserved</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Occasion -->
+            <div class="booking-step">
+              <h3 class="booking-step-title">
+                <span class="booking-step-num">3</span>
+                <span>Occasion Personalization</span>
+              </h3>
+              <div class="occasion-grid">
+                <button class="occasion-chip" id="oc-none" onclick="selectOccasion('none')">Standard Dining</button>
+                <button class="occasion-chip" id="oc-birthday" onclick="selectOccasion('Birthday')">Birthday Party</button>
+                <button class="occasion-chip" id="oc-anniversary" onclick="selectOccasion('Anniversary')">Anniversary Dinner</button>
+                <button class="occasion-chip" id="oc-business" onclick="selectOccasion('Business')">Business Meeting</button>
+                <button class="occasion-chip" id="oc-date" onclick="selectOccasion('Date')">Date Night</button>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="border-top:1px solid var(--border-light); padding-top: 30px; margin-top:30px;">
+              <button class="btn-gold-luxury" style="width:100%; padding:20px;" onclick="submitGlobalBooking()">Complete Reservation Request</button>
+            </div>
+          </div>
+        </section>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+
+      appState.selectedOccasion = "";
+      appState.selectedTableSlot = null;
+    }
+
+    function selectTableSlot(num) {
+      document.querySelectorAll(".table-slot").forEach(slot => {
+        if (!slot.classList.contains("occupied")) {
+          slot.classList.remove("selected");
+        }
+      });
+
+      appState.selectedTableSlot = num;
+      const selectedEl = document.getElementById(`table-slot-${num}`);
+      if (selectedEl) {
+        selectedEl.classList.add("selected");
+        showToast("✓", `Table Slot T${num} Selected`);
+      }
+    }
+
+    function selectOccasion(occ) {
+      document.querySelectorAll(".occasion-chip").forEach(chip => {
+        chip.classList.remove("selected");
+      });
+
+      if (occ !== "none") {
+        appState.selectedOccasion = occ;
+        const key = occ.toLowerCase().split(" ")[0];
+        const chip = document.getElementById(`oc-${key}`);
+        if (chip) chip.classList.add("selected");
+      } else {
+        appState.selectedOccasion = "";
+        document.getElementById("oc-none").classList.add("selected");
+      }
+    }
+
+    function submitGlobalBooking() {
+      const rest = document.getElementById("book-portal-rest").value;
+      const date = document.getElementById("book-portal-date").value;
+      const time = document.getElementById("book-portal-time").value;
+      const guests = parseInt(document.getElementById("book-portal-guests").value);
+
+      if (!appState.selectedTableSlot) {
+        showToast("⚠️", "Please select a table slot from the seating layout chart.");
+        return;
+      }
+
+      const newRes = {
+        id: `RES-${Math.floor(1000 + Math.random() * 9000)}`,
+        restaurantName: rest,
+        date,
+        time,
+        guests,
+        occasion: appState.selectedOccasion || "Dining",
+        tableNum: appState.selectedTableSlot,
+        status: "Confirmed"
+      };
+
+      appState.reservations.unshift(newRes);
+      if (appState.currentUser) {
+        appState.currentUser.points += 150;
+      }
+
+      appState.selectedRestaurantForBooking = null;
+
+      const successModalBody = document.getElementById("success-modal-body");
+      successModalBody.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+          <span style="font-size: 3.5rem; color: var(--gold); display: block; margin-bottom: 20px;">🏆</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; margin-bottom: 8px;">Reservation Completed</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">Our Maitre D' is looking forward to hosting you at <strong>${rest}</strong>.</p>
+          
+          <div style="text-align: left; background: var(--bg-primary); border: 1px solid var(--gold-border); padding: 24px; margin-bottom: 24px; font-size: 0.85rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Ref ID:</span><strong style="color:var(--text-dark)">#${newRes.id}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Schedule Date:</span><strong style="color:var(--text-dark)">${newRes.date}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Arrival Window:</span><strong style="color:var(--text-dark)">${newRes.time}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Party Size:</span><strong style="color:var(--text-dark)">${newRes.guests} Guests</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Occasion:</span><strong style="color:var(--text-dark)">${newRes.occasion}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Table Allocated:</span><strong style="color:var(--gold)">Seating Slot T${newRes.tableNum}</strong></div>
+          </div>
+
+          <div style="background: var(--gold-dim); border: 1px solid var(--gold); padding: 12px; font-size: 0.75rem; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.05em; text-transform: uppercase;">
+            +150 Velvet Club points earned
+          </div>
+
+          <button class="btn-gold-luxury" style="width: 100%;" onclick="closeModal('success-modal'); navigateToHash('profile');">View Member Account</button>
+        </div>
+      `;
+
+      openModal("success-modal");
+    }
+
+    // 7. ABOUT US VIEW
+    function renderAbout() {
+      const page = document.getElementById("page-about");
+      page.innerHTML = `
+        <!-- Hero Header -->
+        <section class="about-hero">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1500" alt="Brand story backdrop">
+          <div class="about-hero-content reveal">
+            <span class="section-subtitle" style="color:var(--gold)">Heritage Story</span>
+            <h1 class="hero-title" style="color:var(--bg-white);">The VelvetBites <em>Heritage</em></h1>
+          </div>
+        </section>
+
+        <!-- Content Layout -->
+        <div class="about-layout">
+          <!-- Section 1 -->
+          <div class="about-row reveal">
+            <div class="about-img-frame">
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" alt="Artisan preparation">
+            </div>
+            <div class="about-text-col">
+              <span class="about-subtitle">Establishment</span>
+              <h2 class="about-title">Bespoke Dining <em>Reimagined</em></h2>
+              <p class="about-desc">Born in 2024, VelvetBites was created with a singular mission: to provide discerning palates a bridge to the finest culinary operations in the country. We believe that fine dining is not merely an ingestion of food, but a choreographed theatrical ritual of sensory design and deep cultural philosophy.</p>
+            </div>
+          </div>
+
+          <!-- Section 2 -->
+          <div class="about-row reverse reveal">
+            <div class="about-img-frame">
+              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&q=80&w=800" alt="Plating design">
+            </div>
+            <div class="about-text-col">
+              <span class="about-subtitle">Curation Creed</span>
+              <h2 class="about-title">Our Culinary <em>Philosophy</em></h2>
+              <p class="about-desc">Our team of gourmet food writers and veteran hoteliers review hundreds of restaurants every season. Only those displaying consistent precision, narrative plating, structural ambience design, and exceptional guest hospitality are selected to enter the VelvetBites catalog.</p>
+            </div>
+          </div>
+
+          <!-- Core Values -->
+          <div class="reveal">
+            <div class="section-header">
+              <span class="section-subtitle">Core Pillars</span>
+              <h2 class="section-title">Culinary <em>Pillars</em></h2>
+            </div>
+            <div class="philosophy-grid">
+              <div class="philosophy-card">
+                <div class="philosophy-num">01</div>
+                <h3 class="philosophy-title">Rigorous Curation</h3>
+                <p class="philosophy-desc">We follow three-Michelin-star criteria, testing for quality of ingredients, mastery of flavour profiles, and chef voice.</p>
+              </div>
+              <div class="philosophy-card">
+                <div class="philosophy-num">02</div>
+                <h3 class="philosophy-title">Hospitality Focus</h3>
+                <p class="philosophy-desc">A premium meal is defined by the narrative of service. We review Maitre D' hospitality flow from check-in to farewell.</p>
+              </div>
+              <div class="philosophy-card">
+                <div class="philosophy-num">03</div>
+                <h3 class="philosophy-title">Atmospheric Resonance</h3>
+                <p class="philosophy-desc">Lighting, acoustics, glass selections, and building architecture must align to create cohesive, transcendent dining.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Awards Widget -->
+          <div class="reveal" style="margin-bottom: 40px;">
+            <div class="section-header">
+              <span class="section-subtitle">Global Accolades</span>
+              <h2 class="section-title">Industry <em>Recognition</em></h2>
+            </div>
+            <div class="awards-list">
+              <div class="award-item">
+                <div class="award-year">2026</div>
+                <h4 class="award-title">Best Luxury Concierge</h4>
+                <p class="award-org">Gourmet Travel Association</p>
+              </div>
+              <div class="award-item">
+                <div class="award-year">2025</div>
+                <h4 class="award-title">Fine Food Innovator</h4>
+                <p class="award-org">Epicurean Circle</p>
+              </div>
+              <div class="award-item">
+                <div class="award-year">2025</div>
+                <h4 class="award-title">UX Design Gold</h4>
+                <p class="award-org">Digital Luxury Awards</p>
+              </div>
+              <div class="award-item">
+                <div class="award-year">2024</div>
+                <h4 class="award-title">Top Hospitality Tech</h4>
+                <p class="award-org">Hospitality Europe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    // 8. CONTACT US VIEW
+    function renderContact() {
+      const page = document.getElementById("page-contact");
+      page.innerHTML = `
+        <section class="home-section" style="padding-bottom: 20px;">
+          <div class="section-header reveal">
+            <span class="section-subtitle">Gourmet Desk</span>
+            <h2 class="section-title">Connect with <em>Our Concierge</em></h2>
+            <p class="section-desc">Have a specific dining requirement? Planning a bespoke corporate gathering? Get in touch with our luxury hosts.</p>
+          </div>
+
+          <div class="contact-layout">
+            <!-- Contact Information column -->
+            <div class="contact-info-col reveal">
+              <div class="contact-card-info">
+                <div class="contact-icon">✦</div>
+                <div class="contact-details">
+                  <h4>Club Hotline</h4>
+                  <p>Direct priority line for corporate and VIP bookings:<br><strong>+91 1800-VELVET-B</strong> (9:00 AM - 12:00 AM)</p>
+                </div>
+              </div>
+              <div class="contact-card-info">
+                <div class="contact-icon">✦</div>
+                <div class="contact-details">
+                  <h4>Email Concierge</h4>
+                  <p>Inquiries, partner operations, and events:<br><strong>concierge@velvetbites.com</strong></p>
+                </div>
+              </div>
+              <div class="contact-card-info">
+                <div class="contact-icon">✦</div>
+                <div class="contact-details">
+                  <h4>Regional Headquarters</h4>
+                  <p>VelvetBites Luxury Group,<br>Level 4, Imperial Plaza, Connaught Place, New Delhi – 110001</p>
+                </div>
+              </div>
+
+              <!-- Stylized Map Frame -->
+              <div class="premium-map-frame">
+                <div class="premium-map-placeholder">
+                  <img src="new_delhi_satellite_1781066118613.png" alt="New Delhi HQ Satellite View" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+                  <div class="map-graphic"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Form column -->
+            <div class="contact-form-col reveal">
+              <h3 class="form-title">Concierge Request Form</h3>
+              <form onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-input" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-input" required placeholder="name@domain.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Subject</label>
+                  <select class="form-input" style="background:var(--bg-primary);">
+                    <option value="corporate">Corporate Gala / Dinner Event</option>
+                    <option value="vip">Discretion Table Reservation</option>
+                    <option value="partnership">Restaurant Partner Integration</option>
+                    <option value="feedback">Gourmet Guild Feedback</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Detailed Request</label>
+                  <textarea class="form-input form-textarea" required placeholder="Please details your request (dates, guests details, allergy warnings, or event requirements)..."></textarea>
+                </div>
+                <button type="submit" class="btn-gold-luxury" style="width: 100%; margin-top: 10px;">Transmit Request</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      `;
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showToast("📨", "Your priority request has been received by our concierge.");
+      e.target.reset();
+    }
+
+    // ══════════════════════════════════════════════
+    //  AUTH & ACCOUNT ACTIONS (REMOVED)
+    // ══════════════════════════════════════════════
+    // All authentication functions removed per user request.
+    // Users are now taken directly to live order tracking after checkout.
+
+    // Modal functions
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add("open");
+    }
+
+    // Close Modal
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("open");
+    }
+
+    function closeModalOutside(e, id) {
+      if (e.target === document.getElementById(id)) {
+        closeModal(id);
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    //  CART & ORDER PIPELINE
+    // ══════════════════════════════════════════════
+
+    function toggleCartDrawer(isOpen) {
+      const overlay = document.getElementById("cart-drawer-overlay");
+      if (overlay) {
+        overlay.classList.toggle("open", isOpen);
+      }
+    }
+
+    function closeCartDrawerOutside(e) {
+      if (e.target === document.getElementById("cart-drawer-overlay")) {
+        toggleCartDrawer(false);
+      }
+    }
+
+    function addToOrderCart(itemName, price, restaurantName, image) {
+      const existing = appState.cart.find(x => x.name === itemName && x.restaurantName === restaurantName);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        appState.cart.push({ name: itemName, price, restaurantName, image, qty: 1 });
+      }
+
+      updateCartCounter();
+      renderCartDrawer();
+      showToast("🛒", `${itemName} added to orders`);
+    }
+
+    function adjustCartQty(name, restName, delta) {
+      const item = appState.cart.find(x => x.name === name && x.restaurantName === restName);
+      if (!item) return;
+
+      item.qty += delta;
+      if (item.qty <= 0) {
+        appState.cart = appState.cart.filter(x => !(x.name === name && x.restaurantName === restName));
+      }
+
+      updateCartCounter();
+      renderCartDrawer();
+    }
+
+    function removeCartItem(name, restName) {
+      appState.cart = appState.cart.filter(x => !(x.name === name && x.restaurantName === restName));
+      updateCartCounter();
+      renderCartDrawer();
+    }
+
+    function updateCartCounter() {
+      const totalQty = appState.cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById("cart-counter").textContent = totalQty;
+    }
+
+    function renderCartDrawer() {
+      const body = document.getElementById("cart-drawer-body");
+      const footer = document.getElementById("cart-drawer-footer");
+
+      if (appState.cart.length === 0) {
+        body.innerHTML = `
+          <div class="empty-cart-msg">
+            <span>🍽</span>
+            <p>Your luxury collection order sheet is empty.</p>
+            <p style="font-size:0.75rem; margin-top: 8px;">Explore menus to add artisan selections.</p>
+          </div>
+        `;
+        footer.style.display = "none";
+        return;
+      }
+
+      footer.style.display = "block";
+
+      body.innerHTML = appState.cart.map(i => `
+        <div class="cart-item-row">
+          <img class="cart-item-img" src="${i.image}" alt="${i.name}">
+          <div class="cart-item-details">
+            <h4 class="cart-item-title">${i.name}</h4>
+            <span class="cart-item-rest">${i.restaurantName}</span>
+            
+            <div class="cart-item-pricing">
+              <div class="cart-item-qty">
+                <button class="qty-adjust" data-action="decrease" data-item="${encodeURIComponent(i.name)}" data-restaurant="${encodeURIComponent(i.restaurantName)}">-</button>
+                <span style="font-size:0.85rem; font-weight:600; width:15px; text-align:center;">${i.qty}</span>
+                <button class="qty-adjust" data-action="increase" data-item="${encodeURIComponent(i.name)}" data-restaurant="${encodeURIComponent(i.restaurantName)}">+</button>
+              </div>
+              <span class="cart-item-price-val">₹${(i.price * i.qty).toLocaleString()}</span>
+            </div>
+            <div style="margin-top:8px;">
+              <button class="cart-remove-btn" data-item="${encodeURIComponent(i.name)}" data-restaurant="${encodeURIComponent(i.restaurantName)}">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      const subtotal = appState.cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      const serviceCharge = Math.round(subtotal * 0.10);
+      const gst = Math.round(subtotal * 0.05);
+      const grandTotal = subtotal + serviceCharge + gst;
+
+      const totalsContainer = document.getElementById("cart-totals-container");
+      totalsContainer.innerHTML = `
+        <div class="cart-total-row"><span>Items Subtotal:</span><span>₹${subtotal.toLocaleString()}</span></div>
+        <div class="cart-total-row"><span>Premium Concierge Handling (10%):</span><span>₹${serviceCharge.toLocaleString()}</span></div>
+        <div class="cart-total-row"><span>GST & Taxes (5%):</span><span>₹${gst.toLocaleString()}</span></div>
+        <div class="cart-total-row grand-total"><span>Grand Total:</span><span>₹${grandTotal.toLocaleString()}</span></div>
+      `;
+    }
+
+    // Delegated handler for menu Add buttons (robust against quoting/escaping)
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest && e.target.closest('.menu-item-add-btn');
+      if (!btn) return;
+      const itemName = decodeURIComponent(btn.getAttribute('data-item-name') || '');
+      const price = Number(btn.getAttribute('data-price') || 0);
+      const restaurantName = decodeURIComponent(btn.getAttribute('data-restaurant') || '');
+      const image = decodeURIComponent(btn.getAttribute('data-image') || '');
+      addToOrderCart(itemName, price, restaurantName, image);
+    });
+
+    // Delegated handler for cart quantity adjustments and remove
+    document.addEventListener('click', function(e) {
+      const qBtn = e.target.closest && e.target.closest('.qty-adjust');
+      if (qBtn) {
+        const item = decodeURIComponent(qBtn.getAttribute('data-item') || '');
+        const rest = decodeURIComponent(qBtn.getAttribute('data-restaurant') || '');
+        const action = qBtn.getAttribute('data-action');
+        adjustCartQty(item, rest, action === 'increase' ? 1 : -1);
+        return;
+      }
+
+      const rem = e.target.closest && e.target.closest('.cart-remove-btn');
+      if (rem) {
+        const item = decodeURIComponent(rem.getAttribute('data-item') || '');
+        const rest = decodeURIComponent(rem.getAttribute('data-restaurant') || '');
+        removeCartItem(item, rest);
+        return;
+      }
+    });
+
+    // Checkout Form
+    function openCheckoutModal() {
+      toggleCartDrawer(false);
+      const checkoutBody = document.getElementById("checkout-modal-body");
+
+      const subtotal = appState.cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      const serviceCharge = Math.round(subtotal * 0.10);
+      const gst = Math.round(subtotal * 0.05);
+      const grandTotal = subtotal + serviceCharge + gst;
+
+      checkoutBody.innerHTML = `
+        <div class="booking-step">
+          <h4 class="booking-label" style="margin-bottom:12px;">Selected Gourmet Plates</h4>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 20px;">
+            ${appState.cart.map(i => `
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; border-bottom:1px solid var(--border-light); padding-bottom:8px;">
+                <span>${i.name} <strong>x${i.qty}</strong> <br><small style="color:var(--gold); font-size:0.7rem;">${i.restaurantName}</small></span>
+                <strong>₹${(i.price * i.qty).toLocaleString()}</strong>
+              </div>
+            `).join("")}
+          </div>
+
+          <div style="background:var(--bg-primary); border:1px solid var(--border-light); padding:18px; font-size:0.8rem; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; justify-content:space-between;"><span>Menu Subtotal</span><span>₹${subtotal.toLocaleString()}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Concierge Premium (10%)</span><span>₹${serviceCharge.toLocaleString()}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>GST & State Taxes (5%)</span><span>₹${gst.toLocaleString()}</span></div>
+            <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border-light); padding-top:10px; font-size:1rem; font-weight:600; color:var(--text-dark);">
+              <span>Total Payable</span><span style="color:var(--gold)">₹${grandTotal.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+
+        <form onsubmit="handleOrderConfirmation(event, ${grandTotal})">
+          <div class="booking-step">
+            <h4 class="booking-label" style="margin-bottom:12px;">Concierge Delivery Address</h4>
+            <div class="form-group" style="margin-bottom:12px;">
+              <input type="text" class="input-luxury" required id="chk-address-1" placeholder="Apartment / Villa Number, Tower/Block">
+            </div>
+            <div class="form-group">
+              <input type="text" class="input-luxury" required id="chk-address-2" placeholder="Street Name, Locality Name">
+            </div>
+          </div>
+
+          <div class="booking-step">
+            <h4 class="booking-label" style="margin-bottom:12px;">VIP Payment Options</h4>
+            <div class="booking-grid" style="grid-template-columns: 1fr 1fr; gap:16px;">
+              <label class="occasion-chip" style="display:flex; align-items:center; gap:10px; padding:16px;">
+                <input type="radio" name="chk-pay" checked value="UPI Instant">
+                <span>UPI / Google Pay</span>
+              </label>
+              <label class="occasion-chip" style="display:flex; align-items:center; gap:10px; padding:16px;">
+                <input type="radio" name="chk-pay" value="Credit Card">
+                <span>Premium Credit Card</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-gold-luxury" style="width:100%; padding:18px;">Confirm and Place Order (₹${grandTotal.toLocaleString()})</button>
+        </form>
+      `;
+
+      openModal("checkout-modal");
+    }
+
+    function handleOrderConfirmation(e, grandTotal) {
+      e.preventDefault();
+
+      const addr1 = document.getElementById("chk-address-1").value;
+      const addr2 = document.getElementById("chk-address-2").value;
+      const orderId = `ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      const newOrder = {
+        id: orderId,
+        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        items: appState.cart.map(x => ({ name: x.name, qty: x.qty })),
+        total: grandTotal,
+        status: "Completed"
+      };
+
+      appState.orders.unshift(newOrder);
+      if (appState.currentUser) {
+        appState.currentUser.points += Math.round(grandTotal * 0.1);
+      }
+
+      appState.cart = [];
+      updateCartCounter();
+      closeModal("checkout-modal");
+
+      const successModalBody = document.getElementById("success-modal-body");
+      successModalBody.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+          <span style="font-size: 3.5rem; color: var(--gold); display: block; margin-bottom: 20px;">🎉</span>
+          <h2 style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; margin-bottom: 8px;">Order Confirmed</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">Your order is being prepared & will be delivered shortly.</p>
+          
+          <div style="text-align: left; background: var(--bg-primary); border: 1px solid var(--gold-border); padding: 24px; margin-bottom: 24px; font-size: 0.85rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Order ID:</span><strong style="color:var(--text-dark)">#${orderId}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Delivery:</span><strong style="color:var(--text-dark)">${addr1}</strong></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 10px;"><span>Total:</span><strong style="color:var(--text-dark)">₹${grandTotal.toLocaleString()}</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Status:</span><strong style="color:var(--success)">🟢 Preparing</strong></div>
+          </div>
+
+          <button class="btn-gold-luxury" style="width: 100%;" onclick="closeModal('success-modal'); showLiveOrderTracking('${orderId}');">Track Live Order</button>
+        </div>
+      `;
+
+      openModal("success-modal");
+    }
+
+    // ══════════════════════════════════════════════
+    //  LIVE ORDER TRACKING
+    // ══════════════════════════════════════════════
+
+    function showLiveOrderTracking(orderId) {
+      const page = document.getElementById("page-order-tracking");
+      // Find the order in appState
+      const order = appState.orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const statuses = ["🟢 Order Received", "🟡 Preparing", "🟡 Ready", "🔵 Out for Delivery", "✅ Delivered"];
+      const statusIndex = Math.floor(Math.random() * statuses.length);
+      const currentStatus = statuses[statusIndex];
+
+      page.innerHTML = `
+        <section style="max-width: 800px; margin: 60px auto; padding: 40px; text-align: center;">
+          <div class="section-header reveal">
+            <h2 class="section-title">Live Order <em>Tracking</em></h2>
+          </div>
+
+          <div style="background: var(--bg-primary); border: 2px solid var(--gold-border); padding: 40px; border-radius: 12px; margin-bottom: 40px;">
+            <span style="font-size: 3rem; color: var(--gold); display: block; margin-bottom: 20px;">📦</span>
+            <h3 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; margin-bottom: 8px;">Order #${orderId}</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.9rem;">Real-time delivery tracking</p>
+
+            <div style="text-align: left; margin: 30px 0;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <span style="font-weight: 600; color: var(--text-dark);">Order Status:</span>
+                <span style="color: var(--gold); font-weight: 700; font-size: 1.1rem;">${currentStatus}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <span style="font-weight: 600; color: var(--text-dark);">Ordered:</span>
+                <span style="color: var(--text-muted);">${order.date}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-weight: 600; color: var(--text-dark);">Total:</span>
+                <span style="color: var(--gold); font-weight: 600;">₹${order.total.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div style="background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); height: 6px; border-radius: 3px; margin: 30px 0; position: relative; overflow: hidden;">
+              <div style="background: var(--gold); height: 100%; width: ${((statusIndex + 1) / statuses.length) * 100}%; border-radius: 3px;"></div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 24px; font-size: 0.75rem;">
+              ${statuses.map((s, i) => `
+                <div style="opacity: ${i <= statusIndex ? '1' : '0.3'}; color: var(--text-muted);">
+                  <div style="font-weight: 600; margin-bottom: 4px;">${s.substring(0, 3)}</div>
+                  <div style="font-size: 0.65rem;">${s.substring(5)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <button class="btn-gold-luxury" style="width: 100%; max-width: 400px;" onclick="navigateToHash('restaurants')">Continue Shopping</button>
+        </section>
+      `;
+
+      document.querySelectorAll(".page-view").forEach(p => {
+        p.classList.remove("active", "fade-in");
+      });
+
+      page.classList.add("active");
+      setTimeout(() => page.classList.add("fade-in"), 50);
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ══════════════════════════════════════════════
+    //  INITIALIZATION
+    // ══════════════════════════════════════════════
+
+    window.addEventListener("hashchange", handleRouteChange);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      handleRouteChange();
+    });
+  </script>
+</body>
+
+</html>
