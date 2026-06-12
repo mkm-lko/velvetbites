@@ -3210,6 +3210,8 @@
           style="display: flex; align-items: center; gap: 8px;">
           Cart (<span id="cart-counter">0</span>)
         </button>
+        <button id="logout-btn" class="btn-nav-action" onclick="handleLogoutClick()"
+          title="Log out">Logout</button>
         <button id="theme-toggle-btn" class="btn-nav-action" onclick="toggleTheme()"
           title="Toggle dark mode">🌙</button>
       </div>
@@ -3316,6 +3318,23 @@
       </div>
       <div class="modal-body" id="success-modal-body" style="padding-top: 0;">
         <!-- Rendered dynamically by script -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOGOUT CONFIRMATION MODAL ── -->
+  <div id="logout-modal" class="modal-overlay" onclick="closeModalOutside(event, 'logout-modal')">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Confirm Logout</h3>
+        <button class="modal-close" onclick="closeModal('logout-modal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px 28px;">
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 22px;">Are you sure you want to log out? This will end your current session and return you to the VelvetBites homepage.</p>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 18px;">
+          <button class="btn-nav-action" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border-light);" onclick="closeModal('logout-modal')">Cancel</button>
+          <button class="btn-gold-luxury" onclick="confirmLogout()">Log Out</button>
+        </div>
       </div>
     </div>
   </div>
@@ -4820,6 +4839,17 @@
       if (e.target === document.getElementById(id)) {
         closeModal(id);
       }
+    }
+
+    function handleLogoutClick() {
+      openModal('logout-modal');
+    }
+
+    function confirmLogout() {
+      closeModal('logout-modal');
+      appState.currentUser = null;
+      showToast('👋', 'You have been logged out successfully');
+      navigateToHash('');
     }
 
     // ══════════════════════════════════════════════
