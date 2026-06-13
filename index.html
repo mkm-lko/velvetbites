@@ -815,26 +815,18 @@
     }
 
     /* ── HOME / HERO SECTION ── */
-    .hero-section {
-      position: relative;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      padding: 0 80px;
-      background: var(--bg-secondary);
-      overflow: hidden;
-    }
+    .hero-section { position: relative; width:100%; height:100vh; display:flex; align-items:center; padding:0 80px; background: var(--bg-secondary); overflow:hidden; }
 
     .hero-slider-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-
-    .hero-slider-bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:1;
+      background-image: url("BG.png");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
       filter: brightness(0.92);
     }
 
@@ -3163,6 +3155,30 @@
         gap: 20px;
         text-align: center;
       }
+      .hero-section{
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-slider-bg{
+        position: absolute;
+        inset: 0;
+        background-image: url("BG.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .hero-content{
+        position: relative;
+        z-index: 2;
+      }
     }
   </style>
 </head>
@@ -3406,6 +3422,7 @@
         isOpen: true,
         openTime: "12:30 PM - 11:00 PM",
         tag: "Fine Dining",
+        dietTags: ["non-veg"],
         coverImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800",
         description: "An intimate temple of classical French gastronomy, boasting meticulous culinary craft and a historical, gold-accented atmosphere.",
         story: "Founded on the belief that dining is the highest form of sensory theatre, L'Ambroisie brings three-Michelin-star standards to the capital. Led by Executive Chef Pierre Moreau, every dish is an editorial statement of technique, balance, and pure luxury.",
@@ -3448,6 +3465,7 @@
         isOpen: true,
         openTime: "5:00 PM - 1:00 AM",
         tag: "Rooftops",
+        dietTags: ["non-veg"],
         coverImage: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?auto=format&fit=crop&q=80&w=800",
         description: "Perched high above Bengaluru, Aura offers dynamic botanical architecture, signature mixology, and panoramic cityscape views.",
         story: "Aura is designed as an urban oasis, blending lush vertical gardens with sleek glass structures. The menu, curated by Chef Kenji Sato, celebrates modern interpretations of classic sushi, dim sum, and wood-fired skewers.",
@@ -3474,7 +3492,8 @@
           ]
         },
         reviews: [
-          { username: "Nikhil Kamath", avatar: "N", date: "June 2, 2026", rating: 4.8, comment: "The views here are unmatched. Sipping their signature whiskey sour while watching the sunset over the Bengaluru skyline is an experience everyone should have." }
+          { username: "Nikhil Kamath", avatar: "N", date: "June 2, 2026", rating: 4.8, comment: "The views here are unmatched. Sipping their signature whiskey sour while watching the sunset over the Bengaluru skyline is an experience everyone should have." },
+          { username: "Priya Nair", avatar: "P", date: "June 5, 2026", rating: 4.7, comment: "Aura's cocktails were beautifully balanced and the sunset vibe made it feel very special. Perfect for a celebration with friends." }
         ]
       },
       {
@@ -3489,6 +3508,7 @@
         isOpen: true,
         openTime: "8:00 AM - 10:00 PM",
         tag: "Cafes",
+        dietTags: ["veg","non-veg"],
         coverImage: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800",
         description: "A beautifully lit glass conservatory featuring artisan sourdoughs, gourmet coffees, and delicate French pastries.",
         story: "The Conservatory brings European heritage dining to Hazratganj, Lucknow. Housed under a majestic atrium, we emphasize slow fermentation, ethically sourced coffee beans, and farm-to-table lunch plates.",
@@ -3514,7 +3534,8 @@
           ]
         },
         reviews: [
-          { username: "Aditi Sharma", avatar: "A", date: "May 30, 2026", rating: 4.5, comment: "Hands down the best place in Lucknow for a Sunday morning. Sourdough is exceptionally airy and the pastries are true works of art." }
+          { username: "Aditi Sharma", avatar: "A", date: "May 30, 2026", rating: 4.5, comment: "Hands down the best place in Lucknow for a Sunday morning. Sourdough is exceptionally airy and the pastries are true works of art." },
+          { username: "Mira Kapoor", avatar: "M", date: "June 3, 2026", rating: 4.6, comment: "The geisha coffee was outstanding and the outdoor conservatory seating feels so peaceful. A great spot for work or leisure." }
         ]
       },
       {
@@ -3529,6 +3550,7 @@
         isOpen: true,
         openTime: "12:00 PM - 11:30 PM",
         tag: "Romantic Restaurants",
+        dietTags: ["non-veg"],
         coverImage: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800",
         description: "An elegant, candlelit courtyard sanctuary by the ocean, specializing in wood-fired coastal delicacies.",
         story: "Céleste channels the coastal spirit of the Italian Riviera. Dine under a canopy of illuminated olive trees while listening to soft live acoustic jazz. Our open-fire grill highlights prime cuts and fresh catches.",
@@ -3554,7 +3576,8 @@
           ]
         },
         reviews: [
-          { username: "Vikram Malhotra", avatar: "V", date: "May 12, 2026", rating: 5, comment: "Simply magical. If you are planning a date night in Mumbai, book a table in their courtyard. Unparalleled romantic vibes, excellent food." }
+          { username: "Vikram Malhotra", avatar: "V", date: "May 12, 2026", rating: 5, comment: "Simply magical. If you are planning a date night in Mumbai, book a table in their courtyard. Unparalleled romantic vibes, excellent food." },
+          { username: "Sana Reddy", avatar: "S", date: "June 6, 2026", rating: 4.9, comment: "From the lobster ravioli to the moody ocean-side atmosphere, everything felt premium. Ideal for a romantic anniversary dinner." }
         ]
       },
       {
@@ -3569,6 +3592,7 @@
         isOpen: true,
         openTime: "7:00 PM - 11:30 PM",
         tag: "Celebrity Chef Kitchens",
+        dietTags: ["non-veg"],
         coverImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
         description: "Led by award-winning Celebrity Chef Rohit Ghai, this space is dedicated to theatrical gastronomy and culinary stories.",
         story: "Chef Rohit Ghai redefines classic Indian regional cooking using molecular gastronomy, artistic plating, and global ingredients. Guests can sit by the interactive chef's counter and witness menus designed as painted canvases.",
@@ -3609,6 +3633,7 @@
         isOpen: true,
         openTime: "12:00 PM - 11:30 PM",
         tag: "Family Restaurants",
+        dietTags: ["veg","non-veg"],
         coverImage: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
         description: "An opulent multi-cuisine salon featuring grand circular seating, live carving stations, and artisanal pastries.",
         story: "Designed for elegant multi-generational gatherings, The Grand Pavilion merges classic hospitality with global tastes. Offering live pasta tossers, prime lamb carvings, and an extensive high tea layout.",
@@ -3687,7 +3712,8 @@
         query: "",
         city: "all",
         cuisine: "all",
-        tag: "all"
+        tag: "all",
+        diet: "all"
       },
       selectedOccasion: "",
       selectedTableSlot: null,
@@ -3869,26 +3895,36 @@
     function renderHome() {
       const page = document.getElementById("page-home");
       page.innerHTML = `
-        <!-- Hero Slider -->
-        <section class="hero-section">
-          <div class="hero-slider-bg">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1500" alt="Luxury Steakhouse Dine">
-          </div>
-          <div class="hero-overlay"></div>
-          <div class="hero-content reveal">
-            <div class="hero-badge">
-              <div class="hero-badge-dot"></div>
-              <span>Bespoke Concierge Discovery</span>
-            </div>
-            <h1 class="hero-title">Curated Dining <em>Experiences</em> Worth Remembering</h1>
-            <p class="hero-subtitle">Discover exceptional restaurants, handcrafted culinary menus, and unforgettable evenings customized by taste.</p>
-            <div class="hero-actions">
-              <button class="btn-gold-luxury" onclick="navigateToHash('restaurants')">Explore Restaurants</button>
-              <button class="btn-luxury" onclick="navigateToHash('reservations')">Reserve a Table</button>
-            </div>
-          </div>
-        </section>
+       <!-- Hero Slider -->
+      <section class="hero-section">
+      <div class="hero-slider-bg"></div>
 
+      <div class="hero-overlay"></div>
+      <div class="hero-content reveal">
+      <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span>Bespoke Concierge Discovery</span>
+      </div>
+
+      <h1 class="hero-title">
+      Curated Dining <em>Experiences</em> Worth Remembering
+      </h1>
+
+      <p class="hero-subtitle">
+      Discover exceptional restaurants, handcrafted culinary menus,
+      and unforgettable evenings customized by taste.
+      </p>
+
+      <div class="hero-actions">
+      <button class="btn-gold-luxury" onclick="navigateToHash('restaurants')">
+        Explore Restaurants
+      </button>
+      <button class="btn-luxury" onclick="navigateToHash('reservations')">
+        Reserve a Table
+      </button>
+      </div>
+      </div>
+    </section>
         <!-- Signature Dining Collections -->
         <section class="home-section">
           <div class="section-header reveal">
@@ -3937,7 +3973,7 @@
         <section class="home-section">
           <div class="section-header reveal">
             <span class="section-subtitle">Patron Stories</span>
-            <h2 class="section-title">Verified Guest <em>Experiences</em></h2>
+            <h2 class="section-title">Verified User <em>Experiences</em></h2>
           </div>
 
           <div class="testimonials-slider reveal">
@@ -3980,8 +4016,11 @@
         const matchesCity = appState.searchFilters.city === "all" || r.city === appState.searchFilters.city;
         const matchesCuisine = appState.searchFilters.cuisine === "all" || r.cuisine.includes(appState.searchFilters.cuisine);
         const matchesTag = appState.searchFilters.tag === "all" || r.tag === appState.searchFilters.tag;
+        const matchesDiet = appState.searchFilters.diet === "all" || (
+          appState.searchFilters.diet === "veg" ? r.dietTags.includes("veg") : r.dietTags.includes("non-veg")
+        );
 
-        return matchesQuery && matchesCity && matchesCuisine && matchesTag;
+        return matchesQuery && matchesCity && matchesCuisine && matchesTag && matchesDiet;
       });
 
       page.innerHTML = `
@@ -4002,6 +4041,13 @@
                 <select class="select-luxury" id="rest-cuisine-select" onchange="handleCuisineFilter(this.value)">
                   <option value="all">All Cuisines</option>
                   ${cuisines.map(c => `<option value="${c}" ${appState.searchFilters.cuisine === c ? "selected" : ""}>${c}</option>`).join("")}
+                </select>
+              </div>
+              <div class="select-wrapper">
+                <select class="select-luxury" id="rest-diet-select" onchange="handleDietFilter(this.value)">
+                  <option value="all">All Dietary Types</option>
+                  <option value="veg" ${appState.searchFilters.diet === "veg" ? "selected" : ""}>Vegetarian</option>
+                  <option value="non-veg" ${appState.searchFilters.diet === "non-veg" ? "selected" : ""}>Non-Vegetarian</option>
                 </select>
               </div>
             </div>
@@ -4056,6 +4102,7 @@
                       <div class="card-info-footer">
                         <span>Avg Cost: <strong>₹${r.costForTwo.toLocaleString()}</strong></span>
                         <span>Distance: <strong>${r.distance}</strong></span>
+                        <span>Diet: <strong>${r.dietTags.includes("non-veg") && r.dietTags.includes("veg") ? "Veg & Non-Veg" : r.dietTags.includes("veg") ? "Vegetarian" : "Non-Vegetarian"}</strong></span>
                         <span style="color:${r.isOpen ? 'var(--success)' : 'var(--danger)'}; font-weight:600;">
                           ${r.isOpen ? 'Open Now' : 'Closed'}
                         </span>
@@ -4076,6 +4123,32 @@
 
       page.classList.add("active");
       setTimeout(() => page.classList.add("fade-in"), 50);
+      
+      // Scroll to top to show filtered results
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // Force reveal elements to be visible - reveal animation fallback
+      setTimeout(() => {
+        const revealElements = page.querySelectorAll(".reveal");
+        revealElements.forEach(el => {
+          el.classList.add("revealed");
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      }, 100);
+      
+      // Final safety net - ensure content is visible after 3 seconds
+      setTimeout(() => {
+        page.style.opacity = "1";
+        page.style.visibility = "visible";
+        const allElements = page.querySelectorAll("*");
+        allElements.forEach(el => {
+          if (el.style.opacity === "0" || el.style.visibility === "hidden") {
+            el.style.opacity = "1";
+            el.style.visibility = "visible";
+          }
+        });
+      }, 3000);
     }
 
     function handleSearchInput(val) {
@@ -4090,15 +4163,9 @@
       appState.searchFilters.cuisine = val;
       renderRestaurants();
     }
-    function handleTagFilter(val) {
-      appState.searchFilters.tag = val;
+    function handleDietFilter(val) {
+      appState.searchFilters.diet = val;
       renderRestaurants();
-    }
-
-    function handleBookNowRedirect(id) {
-      const r = RESTAURANTS.find(x => x.id === id);
-      appState.selectedRestaurantForBooking = r.name;
-      navigateToHash("reservations");
     }
 
     function toggleLikeRestaurant(e, id) {
