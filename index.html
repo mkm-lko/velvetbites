@@ -370,6 +370,40 @@
       gap: 20px;
     }
 
+    .mobile-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 10px;
+      margin-left: 16px;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-dark);
+      margin: 4px 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .navbar.nav-open .mobile-toggle span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .navbar.nav-open .mobile-toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .navbar.nav-open .mobile-toggle span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .navbar.nav-open .nav-links {
+      display: flex;
+    }
+
     .btn-nav-action {
       font-size: 0.8rem;
       font-weight: 500;
@@ -3057,6 +3091,33 @@
         /* Hide standard links on mobile */
       }
 
+      .navbar.nav-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: rgba(250, 247, 242, 0.98);
+        padding: 18px 24px 24px;
+        border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+        z-index: 999;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 12px 0;
+      }
+
+      .nav-right {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: inline-flex;
+      }
+
       .hero-section {
         height: 75vh;
       }
@@ -3212,6 +3273,11 @@
   <header>
     <nav id="navbar">
       <a href="#/" class="nav-logo">Velvet<span>Bites</span></a>
+      <button id="mobileToggle" class="mobile-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <ul class="nav-links">
         <li><a href="#/" id="nav-home">Home</a></li>
         <li><a href="#/restaurants" id="nav-restaurants">Discovery</a></li>
@@ -3876,6 +3942,29 @@
       }
       checkScrollReveal();
     });
+
+    setupMobileNav();
+
+    function setupMobileNav() {
+      const navbar = document.getElementById("navbar");
+      const mobileToggle = document.getElementById("mobileToggle");
+      const navLinks = document.querySelectorAll("#navbar .nav-links a");
+      if (!navbar || !mobileToggle) return;
+
+      mobileToggle.addEventListener("click", () => {
+        const isOpen = navbar.classList.toggle("nav-open");
+        mobileToggle.setAttribute("aria-expanded", isOpen.toString());
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          if (navbar.classList.contains("nav-open")) {
+            navbar.classList.remove("nav-open");
+            mobileToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      });
+    }
 
     // Scroll Reveal
     function checkScrollReveal() {
